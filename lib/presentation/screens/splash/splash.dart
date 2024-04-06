@@ -3,27 +3,44 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/sign_in/sign_in.dart';
+import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       customNavPush(context, SignIn());
     });
-    return Scaffold(
+    return ScaffoldGradientBackground(
+      gradient: const LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+        colors: [
+          Color(0xFF8EC5FC),
+          Color(0xFFE0C3FC),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            GradientText(
               'Quick Glimplse',
               style: GoogleFonts.poppins(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 0, 0, 0),
               ),
+              gradientType: GradientType.radial,
+              radius: 2.5,
+              colors: [
+                Color.fromARGB(255, 77, 59, 59),
+                const Color.fromARGB(255, 0, 0, 0),
+                Color.fromARGB(255, 223, 73, 73),
+              ],
             ),
             const SizedBox(height: 16),
             LoadingAnimationWidget.fourRotatingDots(

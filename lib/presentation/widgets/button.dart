@@ -9,13 +9,19 @@ import 'package:google_fonts/google_fonts.dart';
 class customButton extends StatelessWidget {
   double? height;
   double? width;
+  String? image;
   String? name;
+  double? textsize;
   Color? color;
   double? radius;
   Color? borderclr;
   Color? textclr;
+  bool isRow;
   customButton(
       {this.height,
+      this.textsize,
+      required this.isRow,
+      this.image,
       this.width,
       this.color,
       this.radius,
@@ -27,10 +33,27 @@ class customButton extends StatelessWidget {
     return Container(
       child: Align(
           alignment: Alignment.center,
-          child: Text(
-            name!,
-            style: GoogleFonts.rubik(color: textclr),
-          )),
+          child: isRow
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage('$image'),
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      name!,
+                      style:
+                          GoogleFonts.rubik(color: textclr, fontSize: textsize),
+                    ),
+                  ],
+                )
+              : Text(
+                  name!,
+                  style: GoogleFonts.rubik(color: textclr, fontSize: textsize),
+                )),
       height: height,
       width: width,
       decoration: BoxDecoration(
