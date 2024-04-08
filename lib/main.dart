@@ -1,7 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+    apiKey: "AIzaSyDFLURsPEzl6KV3Aau3POzWV3JUJd9plz0",
+    projectId: "quick-glimpes",
+    messagingSenderId: "688360665265",
+    appId: "1:688360665265:android:a76df499c29b711251f290",
+    storageBucket: 'code-geeks-ff98c.appspot.com',
+  ));
   runApp(const MyApp());
 }
 

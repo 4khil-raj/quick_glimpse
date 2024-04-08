@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
-import 'package:quick_glimpse/presentation/screens/sign_in/sign_in.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
-      customNavPush(context, SignIn());
+      customNavReplacement(context, SignIn());
     });
     return ScaffoldGradientBackground(
       gradient: const LinearGradient(

@@ -1,4 +1,4 @@
-import 'package:quick_glimpse/presentation/screens/sign_in/sign_up.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 
 class Validations {
   static String? nameValidator(
