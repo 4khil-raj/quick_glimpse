@@ -17,6 +17,7 @@ class customButton extends StatelessWidget {
   Color? borderclr;
   Color? textclr;
   bool isRow;
+  final Function()? onTap;
   customButton(
       {this.height,
       this.textsize,
@@ -27,39 +28,44 @@ class customButton extends StatelessWidget {
       this.radius,
       this.borderclr,
       this.textclr,
+      this.onTap,
       this.name});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Align(
-          alignment: Alignment.center,
-          child: isRow
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage('$image'),
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      name!,
-                      style:
-                          GoogleFonts.rubik(color: textclr, fontSize: textsize),
-                    ),
-                  ],
-                )
-              : Text(
-                  name!,
-                  style: GoogleFonts.rubik(color: textclr, fontSize: textsize),
-                )),
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(radius!),
-          border: Border.all(color: borderclr!)),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        child: Align(
+            alignment: Alignment.center,
+            child: isRow
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage('$image'),
+                      ),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      Text(
+                        name!,
+                        style: GoogleFonts.rubik(
+                            color: textclr, fontSize: textsize),
+                      ),
+                    ],
+                  )
+                : Text(
+                    name!,
+                    style:
+                        GoogleFonts.rubik(color: textclr, fontSize: textsize),
+                  )),
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(radius!),
+            border: Border.all(color: borderclr!)),
+      ),
     );
   }
 }
