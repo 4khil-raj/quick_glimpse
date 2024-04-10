@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
+import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
@@ -20,6 +22,32 @@ class SigninFields extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = BlocProvider.of<AuthBloc>(context);
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+      if (state is AuthLoading) {
+        return Center(
+          child: BlocListener<GoogleAuthBloc, GoogleAuthState>(
+            listener: (context, state) {
+              if (state is GoogleAuthenticated) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  customNavPush(context, HomeScreen());
+                });
+              } else {}
+            },
+            child: Column(
+              children: [
+                LoadingAnimationWidget.halfTriangleDot(
+                    color: Colors.black, size: 50),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Loading',
+                  style: GoogleFonts.rubik(color: Colors.black, fontSize: 50),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
       if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavPush(context, HomeScreen());
@@ -92,6 +120,8 @@ class SigninFields extends StatelessWidget {
             height: 16,
           ),
           customButton(
+            onTap: () =>
+                context.read<GoogleAuthBloc>().add(GoogleSigninEvent()),
             isRow: true,
             color: Colors.black,
             height: 60,
@@ -107,6 +137,7 @@ class SigninFields extends StatelessWidget {
             height: 15,
           ),
           customButton(
+            onTap: () {},
             isRow: true,
             color: Colors.black,
             height: 60,
@@ -128,7 +159,7 @@ class SigninFields extends StatelessWidget {
                   style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
               TextButton(
                   onPressed: () {
-                    customNavReplacement(context, SignUp());
+                    customNavRemoveuntil(context, SignUp());
                   },
                   child: Text(
                     'Sign Up',

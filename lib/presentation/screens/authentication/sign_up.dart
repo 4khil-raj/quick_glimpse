@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/models/auth_model/model.dart';
@@ -27,6 +28,23 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = BlocProvider.of<AuthBloc>(context);
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+      if (state is AuthLoading) {
+        return Center(
+          child: Column(
+            children: [
+              LoadingAnimationWidget.halfTriangleDot(
+                  color: Colors.black, size: 50),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Loading',
+                style: GoogleFonts.rubik(color: Colors.black, fontSize: 50),
+              ),
+            ],
+          ),
+        );
+      }
       if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavRemoveuntil(context, HomeScreen());

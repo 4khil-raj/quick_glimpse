@@ -1,9 +1,6 @@
-// ignore_for_file: sort_child_properties_last
-
-import 'dart:ui';
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class customButton extends StatelessWidget {
@@ -17,9 +14,10 @@ class customButton extends StatelessWidget {
   Color? borderclr;
   Color? textclr;
   bool isRow;
-  final Function()? onTap;
+  Function()? onTap;
   customButton(
-      {this.height,
+      {super.key,
+      this.height,
       this.textsize,
       required this.isRow,
       this.image,

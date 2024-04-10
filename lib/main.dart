@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
+import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
+import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -23,6 +25,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc()..add(CheckLoginStatusEvent()),
+        ),
+        BlocProvider(
+          create: (context) => GoogleAuthBloc(AuthRepository()),
         ),
       ],
       child: MaterialApp(
