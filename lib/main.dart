@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
+import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GoogleAuthBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => OtpBloc(),
         ),
       ],
       child: MaterialApp(

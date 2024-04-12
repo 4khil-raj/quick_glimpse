@@ -7,6 +7,8 @@ import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
+import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/otp_screen.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
@@ -24,27 +26,18 @@ class SigninFields extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is AuthLoading) {
         return Center(
-          child: BlocListener<GoogleAuthBloc, GoogleAuthState>(
-            listener: (context, state) {
-              if (state is GoogleAuthenticated) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  customNavPush(context, HomeScreen());
-                });
-              } else {}
-            },
-            child: Column(
-              children: [
-                LoadingAnimationWidget.halfTriangleDot(
-                    color: Colors.black, size: 50),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  'Loading',
-                  style: GoogleFonts.rubik(color: Colors.black, fontSize: 50),
-                ),
-              ],
-            ),
+          child: Column(
+            children: [
+              LoadingAnimationWidget.halfTriangleDot(
+                  color: Colors.black, size: 50),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Loading',
+                style: GoogleFonts.rubik(color: Colors.black, fontSize: 50),
+              ),
+            ],
           ),
         );
       }
@@ -119,25 +112,37 @@ class SigninFields extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          customButton(
-            onTap: () =>
-                context.read<GoogleAuthBloc>().add(GoogleSigninEvent()),
-            isRow: true,
-            color: Colors.black,
-            height: 60,
-            width: double.infinity,
-            borderclr: Colors.black,
-            name: 'Continue with Google',
-            radius: 20,
-            textclr: Colors.white,
-            image:
-                'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
-          ),
+          BlocBuilder<GoogleAuthBloc, GoogleAuthState>(
+              builder: (context, state) {
+            if (state is GoogleAuthenticated) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                customNavPush(context, HomeScreen());
+              });
+            } else {}
+
+            return customButton(
+              onTap: () =>
+                  //AuthRepository()..signInWithGoogle(context: con,
+                  context.read<GoogleAuthBloc>().add(GoogleSigninEvent()),
+              isRow: true,
+              color: Colors.black,
+              height: 60,
+              width: double.infinity,
+              borderclr: Colors.black,
+              name: 'Continue with Google',
+              radius: 20,
+              textclr: Colors.white,
+              image:
+                  'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
+            );
+          }),
           SizedBox(
             height: 15,
           ),
           customButton(
-            onTap: () {},
+            onTap: () {
+              customNavPush(context, UsingPhone());
+            },
             isRow: true,
             color: Colors.black,
             height: 60,
