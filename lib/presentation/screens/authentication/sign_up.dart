@@ -1,29 +1,29 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/models/auth_model/model.dart';
-import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/widgets/signup_fields.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
-import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
 
 final createPasscodeController = TextEditingController();
+final usernameController = TextEditingController();
+final phoneController = TextEditingController();
+final emailContoller = TextEditingController();
+final conformPasscodeContoller = TextEditingController();
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
-  final usernameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final emailContoller = TextEditingController();
-  final conformPasscodeContoller = TextEditingController();
+  final form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final auth = BlocProvider.of<AuthBloc>(context);
@@ -49,8 +49,26 @@ class SignUp extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavRemoveuntil(context, HomeScreen());
         });
+      } else if (state is AuthError) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Text(state.message.toString()),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          BlocProvider.of<AuthBloc>(context)
+                              .add((LoggingInitialEvent()));
+                        },
+                        child: Text('ok'))
+                  ],
+                );
+              });
+        });
       }
-
       return ScaffoldGradientBackground(
         gradient: LinearGradient(
           begin: Alignment.bottomLeft,
@@ -67,58 +85,15 @@ class SignUp extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Register',
-                      style: GoogleFonts.poppins(
-                          fontSize: 29, fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CustomTextFormField(
-                    validator: Validations.nameValidator,
-                    hintText: 'Enter your Name',
-                    controller: usernameController,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextFormField(
-                      keyboardType: TextInputType.phone,
-                      validator: Validations.phoneValidator,
-                      hintText: 'Phone',
-                      controller: phoneController),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      validator: Validations.validateEmail,
-                      hintText: 'Email',
-                      controller: emailContoller),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextFormField(
-                      validator: Validations.validateCreatepassword,
-                      hintText: 'Create Passcode',
-                      controller: createPasscodeController),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextFormField(
-                      validator: Validations.validateConformpassword,
-                      hintText: 'Conform Passcode',
-                      controller: conformPasscodeContoller),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  Form(key: form, child: SignupFormFields()),
                   customButton(
-                    onTap: () async {
+                    onTap: () {
+                      form.currentState?.validate();
                       UserModel user = UserModel(
                           email: emailContoller.text.trim(),
                           password: conformPasscodeContoller.text.trim(),
                           name: usernameController.text,
                           phone: phoneController.text);
-                      log(user.toString());
                       auth.add(SignUpEvent(user: user));
                     },
                     isRow: false,

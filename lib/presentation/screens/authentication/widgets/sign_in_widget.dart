@@ -6,7 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
-import 'package:quick_glimpse/presentation/screens/authentication/email_auth.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/widgets/email_auth.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/otp_screen.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
@@ -110,11 +110,12 @@ class SigninFields extends StatelessWidget {
                         color: Colors.black,
                       ),
                       child: Align(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                      ),
+                          alignment: Alignment.center,
+                          child: LoadingAnimationWidget.discreteCircle(
+                              secondRingColor: Colors.green,
+                              thirdRingColor: Colors.blue,
+                              color: Colors.red,
+                              size: 32)),
                       width: double.infinity,
                       height: 60,
                     )

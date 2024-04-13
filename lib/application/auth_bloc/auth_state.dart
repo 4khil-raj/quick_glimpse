@@ -23,3 +23,5 @@ class AuthError extends AuthState {
 
   AuthError({required this.message});
 }
+
+class AuthInitalState extends AuthState {}

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quick_glimpse/domain/models/auth_model/model.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -10,6 +11,9 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthBloc() : super(AuthInitial()) {
+    on<LoggingInitialEvent>((event, emit) {
+      emit(AuthInitalState());
+    });
     on<CheckLoginStatusEvent>((event, emit) async {
       User? user;
       try {
@@ -28,12 +32,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignUpEvent>((event, emit) async {
-      emit(AuthLoading());
-
       try {
         final userCredential = await _auth.createUserWithEmailAndPassword(
             email: event.user.email.toString(),
             password: event.user.password.toString());
+        phoneController.clear();
+        emailContoller.clear();
+        usernameController.clear();
+        createPasscodeController.clear();
+        conformPasscodeContoller.clear();
+        emit(AuthLoading());
         final user = userCredential.user;
         if (user != null) {
           FirebaseFirestore.instance.collection('users').doc(user.uid).set({
@@ -43,10 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             'phone': event.user.phone,
             // 'uid': user.uid
           });
-          print(user.uid);
           emit(Authenticated(user: user));
         } else {
-          emit(UnAuthenticated());
+          emit(AuthError(message: 'Fill All details'));
         }
       } catch (e) {
         emit(AuthError(message: e.toString()));
@@ -68,6 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthLoading());
           final userCredential = await _auth.signInWithEmailAndPassword(
               email: event.email, password: event.passcode);
+
           final user = userCredential.user;
           if (user != null) {
             emit(Authenticated(user: user));

@@ -22,3 +22,5 @@ class SignUpEvent extends AuthEvent {
 }
 
 class SignoutEvent extends AuthEvent {}
+
+class LoggingInitialEvent extends AuthEvent {}
