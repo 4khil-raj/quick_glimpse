@@ -7,4 +7,6 @@ sealed class GoogleAuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class Googleinitial extends GoogleAuthEvent {}
+
 final class GoogleSigninEvent extends GoogleAuthEvent {}

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, must_be_immutable, sort_child_properties_last
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,20 +6,18 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
-import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
-import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/email_auth.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/otp_screen.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
-import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 
 class SigninFields extends StatelessWidget {
   SigninFields({
     super.key,
   });
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
+  bool Google = false;
   @override
   Widget build(BuildContext context) {
     final auth = BlocProvider.of<AuthBloc>(context);
@@ -40,141 +38,145 @@ class SigninFields extends StatelessWidget {
             ],
           ),
         );
-      }
-      if (state is Authenticated) {
+      } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavPush(context, HomeScreen());
         });
+      } else if (state is AuthError) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red, content: Text(state.message!)));
+        });
       }
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Hello Again!',
-            style:
-                GoogleFonts.poppins(fontSize: 40, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            'Sign in to Your Account',
-            style: GoogleFonts.rubik(fontSize: 15),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          CustomTextFormField(
-            validator: Validations.validateEmail,
-            hintText: 'Email',
-            controller: usernameController,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomTextFormField(
-              validator: Validations.validateCreatepassword,
-              hintText: 'Passcode',
-              controller: passwordController),
-          Align(
-              alignment: Alignment.topLeft,
-              child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'forget your passcode',
-                    style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Color.fromARGB(255, 1, 10, 174)),
-                  ))),
-          SizedBox(
-            height: 2,
-          ),
-          customButton(
-            onTap: () {
-              auth.add(LoginEvent(
-                  email: usernameController.text.trim(),
-                  passcode: passwordController.text.trim()));
-            },
-            textsize: 16,
-            isRow: false,
-            textclr: Colors.white,
-            name: 'Sign In',
-            height: 60.0,
-            width: double.infinity,
-            radius: 20.0,
-            color: Colors.black,
-            borderclr: Colors.transparent,
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            'Or with',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.5),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          BlocBuilder<GoogleAuthBloc, GoogleAuthState>(
-              builder: (context, state) {
-            if (state is GoogleAuthenticated) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavPush(context, HomeScreen());
-              });
-            } else {}
+      return Form(
+        key: _formkey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Hello Again!',
+              style: GoogleFonts.poppins(
+                  fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Sign in to Your Account',
+              style: GoogleFonts.rubik(fontSize: 15),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            EmailAuthScreen(
+              auth: auth,
+              formkey: _formkey,
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            BlocBuilder<GoogleAuthBloc, GoogleAuthState>(
+                builder: (context, state) {
+              if (state is GoogleAuthenticated) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  customNavRemoveuntil(context, HomeScreen());
+                });
+              } else if (state is GoogleAuthLoading) {
+                Google = true;
+              } else if (state is GoogleAuthError) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(state.message.toString()),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  BlocProvider.of<GoogleAuthBloc>(context)
+                                      .add(Googleinitial());
+                                },
+                                child: Text('ok'))
+                          ],
+                        );
+                      });
+                });
+              } else if (state is GoogleAuthInitial) {
+                Google = false;
+              }
 
-            return customButton(
-              onTap: () =>
-                  //AuthRepository()..signInWithGoogle(context: con,
-                  context.read<GoogleAuthBloc>().add(GoogleSigninEvent()),
+              return Google
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black,
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      ),
+                      width: double.infinity,
+                      height: 60,
+                    )
+                  : customButton(
+                      onTap: () =>
+                          //AuthRepository()..signInWithGoogle(context: con,
+                          context
+                              .read<GoogleAuthBloc>()
+                              .add(GoogleSigninEvent()),
+                      isRow: true,
+                      color: Colors.black,
+                      height: 60,
+                      width: double.infinity,
+                      borderclr: Colors.black,
+                      name: 'Continue with Google',
+                      radius: 20,
+                      textclr: Colors.white,
+                      image:
+                          'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
+                    );
+            }),
+            SizedBox(
+              height: 15,
+            ),
+            customButton(
+              onTap: () {
+                customNavPush(context, UsingPhone());
+              },
               isRow: true,
               color: Colors.black,
               height: 60,
               width: double.infinity,
               borderclr: Colors.black,
-              name: 'Continue with Google',
+              name: 'Continue with Phone',
               radius: 20,
               textclr: Colors.white,
               image:
-                  'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
-            );
-          }),
-          SizedBox(
-            height: 15,
-          ),
-          customButton(
-            onTap: () {
-              customNavPush(context, UsingPhone());
-            },
-            isRow: true,
-            color: Colors.black,
-            height: 60,
-            width: double.infinity,
-            borderclr: Colors.black,
-            name: 'Continue with Phone',
-            radius: 20,
-            textclr: Colors.white,
-            image:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIqjeAkumdjSNVIFp14BPW__cZlCqRx3QqkOE_Xo8jpQ&s',
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Dont\'t have account?Let\'s',
-                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
-              TextButton(
-                  onPressed: () {
-                    customNavRemoveuntil(context, SignUp());
-                  },
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Color.fromARGB(255, 1, 10, 174)),
-                  ))
-            ],
-          )
-        ],
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIqjeAkumdjSNVIFp14BPW__cZlCqRx3QqkOE_Xo8jpQ&s',
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Dont\'t have account?Let\'s',
+                    style:
+                        TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
+                TextButton(
+                    onPressed: () {
+                      customNavRemoveuntil(context, SignUp());
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Color.fromARGB(255, 1, 10, 174)),
+                    ))
+              ],
+            )
+          ],
+        ),
       );
     });
   }

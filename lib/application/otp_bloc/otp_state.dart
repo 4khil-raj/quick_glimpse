@@ -25,3 +25,5 @@ class PhoneAuthCodeSentSuccess extends OtpState {
 }
 
 class SignUpScreenOtpSuccessState extends OtpState {}
+
+class Loadinghome extends OtpState {}

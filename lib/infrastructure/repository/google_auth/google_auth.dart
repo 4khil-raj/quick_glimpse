@@ -16,15 +16,12 @@ class AuthRepository {
         final googleAuth = await googleUser.authentication;
         final creds = GoogleAuthProvider.credential(
             accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-        final usercredential = await _auth.signInWithCredential(creds);
-        usercredential.user;
-        print(usercredential.user!.displayName);
-      } else {}
+        final userCredential = await _auth.signInWithCredential(creds);
+        user = userCredential.user; // Assigning the retrieved user
+      }
     } catch (e) {
-      // throw Exception(e.toString());
-      log('kopp');
-      log(e.toString());
-      log('kazhinj');
+      // Handle exceptions
+      log('Error during Google sign in: $e');
     }
     return user;
   }

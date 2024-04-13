@@ -62,15 +62,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<LoginEvent>((event, emit) async {
-      emit(AuthLoading());
+      //
       try {
-        final userCredential = await _auth.signInWithEmailAndPassword(
-            email: event.email, password: event.passcode);
-        final user = userCredential.user;
-        if (user != null) {
-          emit(Authenticated(user: user));
+        if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
+          emit(AuthLoading());
+          final userCredential = await _auth.signInWithEmailAndPassword(
+              email: event.email, password: event.passcode);
+          final user = userCredential.user;
+          if (user != null) {
+            emit(Authenticated(user: user));
+          } else {
+            emit(UnAuthenticated());
+          }
         } else {
-          emit(UnAuthenticated());
+          emit(AuthError(message: 'Enter Valid info!!!'));
         }
       } catch (e) {
         emit(AuthError(message: e.toString()));

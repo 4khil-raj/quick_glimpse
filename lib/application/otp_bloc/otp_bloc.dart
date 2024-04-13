@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,10 +61,17 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     });
 
     on<VerifySentOtp>((event, emit) {
+      print(
+          '============================================sdfsdhfksjdfhksdjfhs=================================================================================================================================================');
       try {
+        log('verification started================================================');
+        print('iam not feeling wellll');
         PhoneAuthCredential credential = PhoneAuthProvider.credential(
             verificationId: event.verificationId, smsCode: event.otpCode);
+        print('ippokittym');
+        // log('tessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
         add(OnOtpAuthenticatedEvent(credential: credential));
+        print('kitty');
       } catch (e) {
         emit(OtpScreenErrorState(error: e.toString()));
       }
@@ -73,12 +82,14 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     });
 
     on<OnOtpAuthenticatedEvent>((event, emit) async {
+      print('ist done');
       try {
         await authModel.authentication
             .signInWithCredential(event.credential)
             .then((value) {
           emit(SignUpScreenOtpSuccessState());
           emit(OtpLoadedState());
+          print('emitted successfull');
         });
       } catch (e) {
         emit(OtpScreenErrorState(error: e.toString()));

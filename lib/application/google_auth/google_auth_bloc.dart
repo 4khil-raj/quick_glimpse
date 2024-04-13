@@ -8,19 +8,25 @@ part 'google_auth_state.dart';
 class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
   GoogleAuthBloc(this._authRepo) : super(GoogleAuthInitial()) {
     on<GoogleSigninEvent>(_signinWithGoogle);
+    on<Googleinitial>(
+      (event, emit) {
+        emit(GoogleAuthInitial());
+      },
+    );
   }
   final AuthRepository _authRepo;
   Future<void> _signinWithGoogle(
       GoogleSigninEvent event, Emitter<GoogleAuthState> emit) async {
-    emit(GoogleAuthLoading());
     try {
-      print('try===========================================');
+      emit(GoogleAuthLoading());
+      // print('try===========================================');
       final user = await _authRepo.signUpWithGoogle();
-      print('await comp=================================================');
+
+      // print('await comp=================================================');
       if (user == null) {
-        print(
-            'usernulll============================================================');
-        emit(GoogleAuthError(message: 'some error occurs'));
+        // print(
+        // 'usernulll============================================================');
+        emit(GoogleAuthError(message: 'Can\'t find Your GoogleAccont'));
       } else {
         emit(GoogleAuthenticated());
       }
