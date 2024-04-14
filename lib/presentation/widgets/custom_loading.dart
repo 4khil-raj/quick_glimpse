@@ -10,7 +10,6 @@ class CustomLoading {
   double? textsize;
   CustomLoading({required this.name, this.textclr, this.textsize});
 
-  @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(

@@ -6,11 +6,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/email_auth.dart';
-import 'package:quick_glimpse/presentation/screens/authentication/otp_screen.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
-import 'package:quick_glimpse/presentation/widgets/button.dart';
 
 class SigninFields extends StatelessWidget {
   SigninFields({
@@ -102,59 +101,12 @@ class SigninFields extends StatelessWidget {
               } else if (state is GoogleAuthInitial) {
                 Google = false;
               }
-
-              return Google
-                  ? Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.black,
-                      ),
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: LoadingAnimationWidget.discreteCircle(
-                              secondRingColor: Colors.green,
-                              thirdRingColor: Colors.blue,
-                              color: Colors.red,
-                              size: 32)),
-                      width: double.infinity,
-                      height: 60,
-                    )
-                  : customButton(
-                      onTap: () =>
-                          //AuthRepository()..signInWithGoogle(context: con,
-                          context
-                              .read<GoogleAuthBloc>()
-                              .add(GoogleSigninEvent()),
-                      isRow: true,
-                      color: Colors.black,
-                      height: 60,
-                      width: double.infinity,
-                      borderclr: Colors.black,
-                      name: 'Continue with Google',
-                      radius: 20,
-                      textclr: Colors.white,
-                      image:
-                          'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
-                    );
+              return CustomGoogleButton(google: Google);
             }),
             SizedBox(
               height: 15,
             ),
-            customButton(
-              onTap: () {
-                customNavPush(context, UsingPhone());
-              },
-              isRow: true,
-              color: Colors.black,
-              height: 60,
-              width: double.infinity,
-              borderclr: Colors.black,
-              name: 'Continue with Phone',
-              radius: 20,
-              textclr: Colors.white,
-              image:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIqjeAkumdjSNVIFp14BPW__cZlCqRx3QqkOE_Xo8jpQ&s',
-            ),
+            CustomPhoneButton(),
             SizedBox(
               height: 24,
             ),

@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,39 +19,37 @@ class UsingPhone extends StatelessWidget {
     var id;
     bool isReq = false;
     bool loading = false;
-    return BlocBuilder<OtpBloc, OtpState>(
-      builder: (context, state) {
-        if (state is Loadinghome) {
-          loading = true;
-        }
-        if (state is OtpInitial) {
-          isReq = false;
-        }
-        if (state is PhoneAuthCodeSentSuccess) {
-          id = state.verificationId;
-          isReq = true;
-        } else if (state is OtpScreenErrorState) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
+    return BlocBuilder<OtpBloc, OtpState>(builder: (context, state) {
+      if (state is Loadinghome) {
+        loading = true;
+      }
+      if (state is OtpInitial) {
+        isReq = false;
+      }
+      if (state is PhoneAuthCodeSentSuccess) {
+        id = state.verificationId;
+        isReq = true;
+      } else if (state is OtpScreenErrorState) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
                     content: Text(state.error.toString()),
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text('ok'))
-                    ],
-                  );
-                });
-          });
-        }
-        if (state is OtpLoadedState) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            customNavPush(context, HomeScreen());
-          });
-        }
-        return Scaffold(
+                    ]);
+              });
+        });
+      }
+      if (state is OtpLoadedState) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          customNavPush(context, HomeScreen());
+        });
+      }
+      return Scaffold(
           appBar: AppBar(),
           body: Center(
             child: isReq
@@ -60,30 +57,26 @@ class UsingPhone extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PinCodeFields(
-                          controller: otpController,
-                          length: 6,
-                          fieldBorderStyle: FieldBorderStyle.square,
-                          fieldHeight: 60,
-                          borderWidth: 1.0,
-                          activeBorderColor: Colors.red,
-                          borderRadius: BorderRadius.circular(12),
-                          textStyle: const TextStyle(
-                              color: Colors.black,
-                              // fontFamily: CustomFont.textFont,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18),
-                          keyboardType: TextInputType.number,
-                          onComplete: (value) {
-                            BlocProvider.of<OtpBloc>(context).add(VerifySentOtp(
-                                otpCode: otpController.text, verificationId: id
-                                // (state as PhoneAuthCodeSentSuccess)
-                                //     .verificationId,
-                                ));
-                          },
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: PinCodeFields(
+                              controller: otpController,
+                              length: 6,
+                              fieldBorderStyle: FieldBorderStyle.square,
+                              fieldHeight: 60,
+                              borderWidth: 1.0,
+                              activeBorderColor: Colors.red,
+                              borderRadius: BorderRadius.circular(12),
+                              textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18),
+                              keyboardType: TextInputType.number,
+                              onComplete: (value) {
+                                BlocProvider.of<OtpBloc>(context).add(
+                                    VerifySentOtp(
+                                        otpCode: otpController.text,
+                                        verificationId: id));
+                              })),
                       SizedBox(
                         height: 20,
                       ),
@@ -126,12 +119,9 @@ class UsingPhone extends StatelessWidget {
                             width: 170,
                             textclr: Colors.white,
                             name: 'Get Otp',
-                          ),
-                        ]),
-                  ),
-          ),
-        );
-      },
-    );
+                          )
+                        ])),
+          ));
+    });
   }
 }

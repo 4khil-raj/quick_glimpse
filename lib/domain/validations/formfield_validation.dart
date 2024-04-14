@@ -21,7 +21,7 @@ class Validations {
     final trimmedValue = value?.trim();
 
     if (trimmedValue == null || trimmedValue.isEmpty) {
-      return 'enter your email id';
+      return 'Enter your email Id';
     }
 
     final RegExp emailRegExp = RegExp(
@@ -29,7 +29,7 @@ class Validations {
     );
 
     if (!emailRegExp.hasMatch(trimmedValue)) {
-      return 'enter valid email';
+      return 'Enter valid email';
     }
     return null;
   }

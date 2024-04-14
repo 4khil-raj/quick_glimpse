@@ -19,14 +19,9 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
       GoogleSigninEvent event, Emitter<GoogleAuthState> emit) async {
     try {
       emit(GoogleAuthLoading());
-      // print('try===========================================');
       final user = await _authRepo.signUpWithGoogle();
-
-      // print('await comp=================================================');
       if (user == null) {
-        // print(
-        // 'usernulll============================================================');
-        emit(GoogleAuthError(message: 'Can\'t find Your GoogleAccont'));
+        emit(GoogleAuthError(message: 'Can\'t find Your GoogleAccount'));
       } else {
         emit(GoogleAuthenticated());
       }
