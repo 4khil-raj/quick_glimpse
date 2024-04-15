@@ -8,6 +8,7 @@ import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
+import 'package:timer_button/timer_button.dart';
 
 class UsingPhone extends StatelessWidget {
   const UsingPhone({super.key});
@@ -18,11 +19,8 @@ class UsingPhone extends StatelessWidget {
     final otpController = TextEditingController();
     var id;
     bool isReq = false;
-    bool loading = false;
+
     return BlocBuilder<OtpBloc, OtpState>(builder: (context, state) {
-      if (state is Loadinghome) {
-        loading = true;
-      }
       if (state is OtpInitial) {
         isReq = false;
       }
@@ -50,7 +48,9 @@ class UsingPhone extends StatelessWidget {
         });
       }
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text('Enter Otp'),
+          ),
           body: Center(
             child: isReq
                 ? Column(
@@ -78,9 +78,28 @@ class UsingPhone extends StatelessWidget {
                                         verificationId: id));
                               })),
                       SizedBox(
+                        height: 10,
+                      ),
+                      TimerButton(
+                        label: "Resend Otp",
+                        timeOutInSeconds: 26,
+                        onPressed: () {
+                          print(phonenumberController.text);
+                          BlocProvider.of<OtpBloc>(context).add(
+                              SendOtpPhoneEvent(
+                                  phone: phonenumberController.text.trim()));
+                        },
+                        buttonType: ButtonType.outlinedButton,
+                        disabledColor: Colors.black,
+                        color: Colors.green,
+                        activeTextStyle: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        disabledTextStyle: const TextStyle(color: Colors.red),
+                      ),
+                      SizedBox(
                         height: 20,
                       ),
-                      loading ? CircularProgressIndicator() : SizedBox()
+                      Text('${phonenumberController.text} the number is worng')
                     ],
                   )
                 : Padding(

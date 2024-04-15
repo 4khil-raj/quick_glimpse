@@ -27,3 +27,10 @@ class PhoneAuthCodeSentSuccess extends OtpState {
 class SignUpScreenOtpSuccessState extends OtpState {}
 
 class Loadinghome extends OtpState {}
+
+class Otploadingstate extends OtpState {}
+
+class OtpTimerState extends OtpState {
+  int timer;
+  OtpTimerState({required this.timer});
+}

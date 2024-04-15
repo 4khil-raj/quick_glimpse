@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,7 +16,7 @@ class AuthRepository {
         user = userCredential.user;
       }
     } catch (e) {
-      log('Error during Google sign in: $e');
+      print('Error during Google sign in: ${e.toString()}');
     }
     return user;
   }

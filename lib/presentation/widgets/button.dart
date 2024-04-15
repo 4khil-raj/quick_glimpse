@@ -13,10 +13,12 @@ class customButton extends StatelessWidget {
   double? radius;
   Color? borderclr;
   Color? textclr;
+  bool? isNetwork = true;
   bool isRow;
   Function()? onTap;
   customButton(
-      {super.key,
+      {this.isNetwork,
+      super.key,
       this.height,
       this.textsize,
       required this.isRow,
@@ -39,9 +41,11 @@ class customButton extends StatelessWidget {
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage('$image'),
-                      ),
+                      isNetwork!
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage('$image'),
+                            )
+                          : CircleAvatar(backgroundImage: AssetImage('$image')),
                       SizedBox(
                         width: 12,
                       ),

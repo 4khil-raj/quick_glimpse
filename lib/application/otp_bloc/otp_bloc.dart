@@ -17,43 +17,32 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   OtpBloc() : super(OtpInitial()) {
     on<SendOtpPhoneEvent>((event, emit) async {
       emit(OtpLoadingScreen());
-      print('entered in event');
-      print(event.phone);
-
       try {
-        print('entered in try');
-        print(event.phone);
-
-        await authModel.loginWithPhone(
-            phoneNumber: event.phone,
-            verificationCompleted: (PhoneAuthCredential credential) {
-              print('verification completed');
-
-              add(OnOtpAuthenticatedEvent(credential: credential));
-              print(event.phone);
-            },
-            verificationFailed: (FirebaseAuthException e) {
-              print('verification failed');
-              print(event.phone);
-
-              add(OnOtpErrorEvent(msg: e.toString()));
-            },
-            codeSent: (String verificationId, int? refreshToken) {
-              print('enterd in code sent');
-              print(event.phone);
-              print(verificationId);
-              print(refreshToken);
-              add(OnphoneOtpSend(
-                  token: refreshToken, verifiactionId: verificationId));
-            },
-            codeAutoRetrievalTimeout: (String verifiacationId) {});
+        if (event.phone.isNotEmpty) {
+          await authModel.loginWithPhone(
+              phoneNumber: event.phone,
+              verificationCompleted: (PhoneAuthCredential credential) {
+                add(OnOtpAuthenticatedEvent(credential: credential));
+              },
+              verificationFailed: (FirebaseAuthException e) {
+                add(OnOtpErrorEvent(msg: e.toString()));
+              },
+              codeSent: (String verificationId, int? refreshToken) {
+                print(event.phone);
+                print(verificationId);
+                print(refreshToken);
+                add(OnphoneOtpSend(
+                    token: refreshToken, verifiactionId: verificationId));
+              },
+              codeAutoRetrievalTimeout: (String verifiacationId) {});
+        } else {
+          print(
+              'ivite ethiiiii=================================================================');
+          emit(OtpScreenErrorState(error: 'Enter Your Phone Number'));
+        }
       } catch (e) {
-        print('entered in catch');
-        print(event.phone);
-
         emit(OtpScreenErrorState(error: e.toString()));
       }
-      print('exit');
     });
 
     on<OnphoneOtpSend>((event, emit) {
@@ -61,17 +50,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     });
 
     on<VerifySentOtp>((event, emit) {
-      print(
-          '============================================sdfsdhfksjdfhksdjfhs=================================================================================================================================================');
       try {
-        log('verification started================================================');
-        print('iam not feeling wellll');
         PhoneAuthCredential credential = PhoneAuthProvider.credential(
             verificationId: event.verificationId, smsCode: event.otpCode);
-        print('ippokittym');
-        // log('tessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
         add(OnOtpAuthenticatedEvent(credential: credential));
-        print('kitty');
       } catch (e) {
         emit(OtpScreenErrorState(error: e.toString()));
       }
@@ -94,6 +76,19 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       } catch (e) {
         emit(OtpScreenErrorState(error: e.toString()));
       }
+    });
+
+    on<OtpTimer>((event, emit) async {
+      int i = 20;
+      while (i >= 0) {
+        // emit(Otploadingstate());
+        await Future.delayed(const Duration(seconds: 1));
+        print('emiting');
+        emit(OtpTimerState(timer: i));
+        print(i);
+        i--;
+      }
+      emit(Otploadingstate());
     });
   }
 }

@@ -32,6 +32,7 @@ class CustomGoogleButton extends StatelessWidget {
             height: 60,
           )
         : customButton(
+            isNetwork: false,
             onTap: () =>
                 context.read<GoogleAuthBloc>().add(GoogleSigninEvent()),
             isRow: true,
@@ -42,8 +43,7 @@ class CustomGoogleButton extends StatelessWidget {
             name: 'Continue with Google',
             radius: 20,
             textclr: Colors.white,
-            image:
-                'https://static1.xdaimages.com/wordpress/wp-content/uploads/2020/05/Google-Search-Dark.jpeg',
+            image: 'assets/images/Google-Search-Dark.jpg',
           );
   }
 }
@@ -54,6 +54,7 @@ class CustomPhoneButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return customButton(
+      isNetwork: false,
       onTap: () {
         customNavPush(context, const UsingPhone());
       },
@@ -65,8 +66,7 @@ class CustomPhoneButton extends StatelessWidget {
       name: 'Continue with Phone',
       radius: 20,
       textclr: Colors.white,
-      image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIqjeAkumdjSNVIFp14BPW__cZlCqRx3QqkOE_Xo8jpQ&s',
+      image: 'assets/images/images.png',
     );
   }
 }
