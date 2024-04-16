@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
 
@@ -23,6 +24,10 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
       if (user == null) {
         emit(GoogleAuthError(message: 'Can\'t find Your GoogleAccount'));
       } else {
+        FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'email': user.email,
+          'name': user.displayName,
+        });
         emit(GoogleAuthenticated());
       }
     } catch (e) {

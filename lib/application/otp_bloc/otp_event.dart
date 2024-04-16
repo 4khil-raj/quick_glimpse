@@ -19,7 +19,7 @@ class OnphoneOtpSend extends OtpEvent {
   const OnphoneOtpSend({required this.token, required this.verifiactionId});
 }
 
-class OtpTimer extends OtpEvent {}
+class OtpinitialEvent extends OtpEvent {}
 
 class VerifySentOtp extends OtpEvent {
   final String otpCode;

@@ -1,7 +1,3 @@
-// ignore_for_file: avoid_print
-
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +10,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   OtpAuthModel authModel = OtpAuthModel();
 
   UserCredential? userCredential;
-  OtpBloc() : super(OtpInitial()) {
+  OtpBloc() : super(OtpInitialState()) {
     on<SendOtpPhoneEvent>((event, emit) async {
       emit(OtpLoadingScreen());
       try {
@@ -28,16 +24,11 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
                 add(OnOtpErrorEvent(msg: e.toString()));
               },
               codeSent: (String verificationId, int? refreshToken) {
-                print(event.phone);
-                print(verificationId);
-                print(refreshToken);
                 add(OnphoneOtpSend(
                     token: refreshToken, verifiactionId: verificationId));
               },
               codeAutoRetrievalTimeout: (String verifiacationId) {});
         } else {
-          print(
-              'ivite ethiiiii=================================================================');
           emit(OtpScreenErrorState(error: 'Enter Your Phone Number'));
         }
       } catch (e) {
@@ -64,31 +55,20 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     });
 
     on<OnOtpAuthenticatedEvent>((event, emit) async {
-      print('ist done');
       try {
         await authModel.authentication
             .signInWithCredential(event.credential)
             .then((value) {
           emit(SignUpScreenOtpSuccessState());
           emit(OtpLoadedState());
-          print('emitted successfull');
         });
       } catch (e) {
         emit(OtpScreenErrorState(error: e.toString()));
       }
     });
 
-    on<OtpTimer>((event, emit) async {
-      int i = 20;
-      while (i >= 0) {
-        // emit(Otploadingstate());
-        await Future.delayed(const Duration(seconds: 1));
-        print('emiting');
-        emit(OtpTimerState(timer: i));
-        print(i);
-        i--;
-      }
-      emit(Otploadingstate());
+    on<OtpinitialEvent>((event, emit) {
+      emit(OtpInitialState());
     });
   }
 }

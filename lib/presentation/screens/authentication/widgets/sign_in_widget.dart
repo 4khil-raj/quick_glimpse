@@ -26,7 +26,7 @@ class SigninFields extends StatelessWidget {
           child: Column(
             children: [
               LoadingAnimationWidget.halfTriangleDot(
-                  color: Colors.black, size: 50),
+                  color: Colors.black, size: 40),
               SizedBox(
                 height: 15,
               ),

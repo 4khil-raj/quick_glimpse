@@ -7,7 +7,7 @@ sealed class OtpState extends Equatable {
   List<Object> get props => [];
 }
 
-final class OtpInitial extends OtpState {}
+final class OtpInitialState extends OtpState {}
 
 class OtpLoadingScreen extends OtpState {}
 
@@ -29,8 +29,3 @@ class SignUpScreenOtpSuccessState extends OtpState {}
 class Loadinghome extends OtpState {}
 
 class Otploadingstate extends OtpState {}
-
-class OtpTimerState extends OtpState {
-  int timer;
-  OtpTimerState({required this.timer});
-}

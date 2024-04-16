@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
@@ -21,7 +22,7 @@ class UsingPhone extends StatelessWidget {
     bool isReq = false;
 
     return BlocBuilder<OtpBloc, OtpState>(builder: (context, state) {
-      if (state is OtpInitial) {
+      if (state is OtpInitialState) {
         isReq = false;
       }
       if (state is PhoneAuthCodeSentSuccess) {
@@ -84,10 +85,10 @@ class UsingPhone extends StatelessWidget {
                         label: "Resend Otp",
                         timeOutInSeconds: 26,
                         onPressed: () {
-                          print(phonenumberController.text);
                           BlocProvider.of<OtpBloc>(context).add(
                               SendOtpPhoneEvent(
-                                  phone: phonenumberController.text.trim()));
+                                  phone: '+91'.trim() +
+                                      phonenumberController.text.trim()));
                         },
                         buttonType: ButtonType.outlinedButton,
                         disabledColor: Colors.black,
@@ -99,7 +100,19 @@ class UsingPhone extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Text('${phonenumberController.text} the number is worng')
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              '${phonenumberController.text} the number is worng.?'),
+                          TextButton(
+                              onPressed: () {
+                                BlocProvider.of<OtpBloc>(context)
+                                    .add(OtpinitialEvent());
+                              },
+                              child: Text('Change'))
+                        ],
+                      )
                     ],
                   )
                 : Padding(
@@ -116,6 +129,7 @@ class UsingPhone extends StatelessWidget {
                             height: 20,
                           ),
                           CustomTextFormField(
+                              validator: Validations.phoneValidator,
                               keyboardType: TextInputType.phone,
                               hintText: 'Enter Your Number',
                               controller: phonenumberController),
@@ -127,7 +141,7 @@ class UsingPhone extends StatelessWidget {
                             onTap: () {
                               BlocProvider.of<OtpBloc>(context).add(
                                   SendOtpPhoneEvent(
-                                      phone:
+                                      phone: '+91'.trim() +
                                           phonenumberController.text.trim()));
                             },
                             textsize: 16,

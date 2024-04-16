@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quick_glimpse/infrastructure/repository/forget_password/forget_passcoderepo.dart';
+
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 
 class ForgetPasscode extends StatelessWidget {
   ForgetPasscode({super.key});
   final forgetEmailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,10 @@ class ForgetPasscode extends StatelessWidget {
                 color: Colors.black,
                 name: 'Get Link',
                 height: 50,
-                onTap: () {},
+                onTap: () {
+                  ForgetPasscodeRepo().forgetpasscode(
+                      context, forgetEmailController.text.toString());
+                },
                 radius: 20,
                 textsize: 14,
                 borderclr: Colors.transparent,

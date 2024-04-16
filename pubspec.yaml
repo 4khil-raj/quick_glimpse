@@ -36,6 +36,8 @@ dependencies:
   build_config: ^1.1.1
   countdown_progress_indicator: ^0.1.2
   timer_button: ^2.1.1
+  fluttertoast: ^8.2.5
+
 
 dev_dependencies:
   flutter_test:
