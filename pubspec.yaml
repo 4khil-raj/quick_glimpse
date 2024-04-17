@@ -37,6 +37,7 @@ dependencies:
   countdown_progress_indicator: ^0.1.2
   timer_button: ^2.1.1
   fluttertoast: ^8.2.5
+  animations: ^2.0.11
 
 
 dev_dependencies:
