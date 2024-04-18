@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
@@ -9,9 +12,8 @@ import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 
 class EmailAuthScreen extends StatelessWidget {
-  final auth;
-  final formkey;
-  const EmailAuthScreen({super.key, required this.auth, required this.formkey});
+  GlobalKey<FormState> formkey;
+  EmailAuthScreen({super.key, required this.formkey});
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +51,17 @@ class EmailAuthScreen extends StatelessWidget {
       customButton(
         onTap: () {
           formkey.currentState!.validate();
-          auth.add(LoginEvent(
+          BlocProvider.of<AuthBloc>(context).add(LoginEvent(
               email: usernameController.text.trim(),
               passcode: passwordController.text.trim()));
+
+          // try {
+          //   FirebaseAuth.instance.signInWithEmailAndPassword(
+          //       email: usernameController.text,
+          //       password: passwordController.text);
+          // } catch (e) {
+          //   print(e.toString());
+          // }
         },
         textsize: 16,
         isRow: false,

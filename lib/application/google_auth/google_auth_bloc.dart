@@ -27,8 +27,9 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
         FirebaseFirestore.instance.collection('users').doc(user.uid).set({
           'email': user.email,
           'name': user.displayName,
-          'profilepicture': user.photoURL,
+          // 'profilepicture': user.photoURL,
         });
+
         emit(GoogleAuthenticated());
         await Future.delayed(const Duration(seconds: 2), () {
           emit(GoogleAuthInitial());

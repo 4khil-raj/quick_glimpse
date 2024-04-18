@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/email_auth.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
+import 'package:quick_glimpse/presentation/screens/authentication/widgets/loading.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
 
 class SigninFields extends StatelessWidget {
@@ -19,24 +19,10 @@ class SigninFields extends StatelessWidget {
   bool Google = false;
   @override
   Widget build(BuildContext context) {
-    final auth = BlocProvider.of<AuthBloc>(context);
+    // final auth = BlocProvider.of<AuthBloc>(context);
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is AuthLoading) {
-        return Center(
-          child: Column(
-            children: [
-              LoadingAnimationWidget.halfTriangleDot(
-                  color: Colors.black, size: 40),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Loading',
-                style: GoogleFonts.rubik(color: Colors.black, fontSize: 50),
-              ),
-            ],
-          ),
-        );
+        return LoginLoading();
       } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavPush(context, HomeScreen());
@@ -48,10 +34,8 @@ class SigninFields extends StatelessWidget {
         });
       }
       return Form(
-        key: _formkey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          key: _formkey,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               'Hello Again!',
               style: GoogleFonts.poppins(
@@ -65,7 +49,6 @@ class SigninFields extends StatelessWidget {
               height: 30,
             ),
             EmailAuthScreen(
-              auth: auth,
               formkey: _formkey,
             ),
             SizedBox(
@@ -85,17 +68,16 @@ class SigninFields extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          content: Text(state.message.toString()),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  BlocProvider.of<GoogleAuthBloc>(context)
-                                      .add(Googleinitial());
-                                },
-                                child: Text('ok'))
-                          ],
-                        );
+                            content: Text(state.message.toString()),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    BlocProvider.of<GoogleAuthBloc>(context)
+                                        .add(Googleinitial());
+                                  },
+                                  child: Text('ok'))
+                            ]);
                       });
                 });
               } else if (state is GoogleAuthInitial) {
@@ -110,27 +92,21 @@ class SigninFields extends StatelessWidget {
             SizedBox(
               height: 24,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Dont\'t have account?Let\'s',
-                    style:
-                        TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
-                TextButton(
-                    onPressed: () {
-                      customNavRemoveuntil(context, SignUp());
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Color.fromARGB(255, 1, 10, 174)),
-                    ))
-              ],
-            )
-          ],
-        ),
-      );
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text('Dont\'t have account?Let\'s',
+                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0))),
+              TextButton(
+                  onPressed: () {
+                    customNavRemoveuntil(context, SignUp());
+                  },
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Color.fromARGB(255, 1, 10, 174)),
+                  ))
+            ])
+          ]));
     });
   }
 }
