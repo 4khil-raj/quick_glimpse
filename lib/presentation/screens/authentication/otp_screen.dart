@@ -7,6 +7,7 @@ import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/home.dart';
+import 'package:quick_glimpse/presentation/screens/profile_build/user_profile.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 import 'package:timer_button/timer_button.dart';
@@ -45,7 +46,7 @@ class UsingPhone extends StatelessWidget {
       }
       if (state is OtpLoadedState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavPush(context, HomeScreen());
+          customNavPush(context, ProfileBuild());
         });
       }
       return Scaffold(

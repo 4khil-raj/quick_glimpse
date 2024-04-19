@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_glimpse/main.dart';
 
 class customButton extends StatelessWidget {
   double? height;
@@ -52,19 +53,21 @@ class customButton extends StatelessWidget {
                       Text(
                         name!,
                         style: GoogleFonts.rubik(
-                            color: textclr, fontSize: textsize),
+                            color: dark ? Colors.black : textclr,
+                            fontSize: textsize),
                       ),
                     ],
                   )
                 : Text(
                     name!,
-                    style:
-                        GoogleFonts.rubik(color: textclr, fontSize: textsize),
+                    style: GoogleFonts.rubik(
+                        color: dark ? Colors.black : textclr,
+                        fontSize: textsize),
                   )),
         height: height,
         width: width,
         decoration: BoxDecoration(
-            color: color,
+            color: dark ? Colors.white : color,
             borderRadius: BorderRadius.circular(radius!),
             border: Border.all(color: borderclr!)),
       ),

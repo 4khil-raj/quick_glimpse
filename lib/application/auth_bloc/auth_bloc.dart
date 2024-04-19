@@ -82,14 +82,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 //---------->Login<--------------//
 
     on<LoginEvent>((event, emit) async {
-      //
       try {
         if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
           emit(AuthLoading());
           UserCredential? userCredential =
               await _auth.signInWithEmailAndPassword(
                   email: event.email, password: event.passcode);
-
           final user = userCredential.user;
           if (user != null) {
             emit(Authenticated(user: user));
