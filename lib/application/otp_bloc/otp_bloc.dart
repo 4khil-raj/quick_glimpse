@@ -21,7 +21,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
                 add(OnOtpAuthenticatedEvent(credential: credential));
               },
               verificationFailed: (FirebaseAuthException e) {
-                add(OnOtpErrorEvent(msg: e.toString()));
+                add(OnOtpErrorEvent(msg: e.message.toString()));
               },
               codeSent: (String verificationId, int? refreshToken) {
                 add(OnphoneOtpSend(
@@ -31,8 +31,8 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
         } else {
           emit(OtpScreenErrorState(error: 'Enter Your Phone Number'));
         }
-      } catch (e) {
-        emit(OtpScreenErrorState(error: e.toString()));
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
       }
     });
 
@@ -45,8 +45,8 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
         PhoneAuthCredential credential = PhoneAuthProvider.credential(
             verificationId: event.verificationId, smsCode: event.otpCode);
         add(OnOtpAuthenticatedEvent(credential: credential));
-      } catch (e) {
-        emit(OtpScreenErrorState(error: e.toString()));
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
       }
     });
 
@@ -62,8 +62,8 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
           emit(SignUpScreenOtpSuccessState());
           emit(OtpLoadedState());
         });
-      } catch (e) {
-        emit(OtpScreenErrorState(error: e.toString()));
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
       }
     });
 

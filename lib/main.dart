@@ -26,30 +26,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(),
-        ),
-        BlocProvider(
-          create: (context) => ProfileBuildBloc(),
-        ),
-        BlocProvider(
-          create: (context) => GoogleAuthBloc(AuthRepository()),
-        ),
-        BlocProvider(
-          create: (context) => OtpBloc(),
-        ),
-      ],
-      child: MaterialApp(
-        darkTheme: dark ? ThemeData.dark() : ThemeData.light(),
-        debugShowCheckedModeBanner: false,
-        title: 'Quick Glimpse',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          // useMaterial3: true,
-        ),
-        home: const SplashScreen(),
-      ),
-    );
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ProfileBuildBloc(),
+          ),
+          BlocProvider(
+            create: (context) => GoogleAuthBloc(AuthRepository()),
+          ),
+          BlocProvider(
+            create: (context) => OtpBloc(),
+          ),
+        ],
+        child: MaterialApp(
+          darkTheme: dark ? ThemeData.dark() : ThemeData.light(),
+          debugShowCheckedModeBanner: false,
+          title: 'Quick Glimpse',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            // useMaterial3: true,
+          ),
+          home: ProfileBuild(),
+        ));
   }
 }

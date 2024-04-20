@@ -12,17 +12,27 @@ part 'profile_build_state.dart';
 class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
   ProfileBuildBloc() : super(ProfileBuildInitial()) {
     final user = FirebaseAuth.instance.currentUser;
-    on<ProfileSaveToCredential>((event, emit) {
+    on<ProfileSaveToCredential>((event, emit) async {
       try {
-        FirebaseFirestore.instance.collection('Profile').doc(user!.uid).set({
-          'email': event.email,
-          'name': event.name,
-          'profile_pic': event.image,
-          'phone': user.phoneNumber,
-          'bio': 'Edit the bio'
-        });
-      } catch (e) {
-        print(e);
+        if (event.email.isNotEmpty &&
+            event.name.isNotEmpty &&
+            event.image.isNotEmpty) {
+          await FirebaseFirestore.instance
+              .collection('Profile')
+              .doc(user!.uid)
+              .set({
+            'email': event.email,
+            'name': event.name,
+            'profile_pic': event.image,
+            'phone': user.phoneNumber,
+            'bio': 'Edit the bio'
+          });
+          emit(ProfileSaveToCredentialSuccess());
+        } else {
+          emit(ProfileBuildError(message: '*Details are Required'));
+        }
+      } on FirebaseException catch (e) {
+        emit(ProfileBuildError(message: e.message.toString()));
       }
     });
 
@@ -31,16 +41,13 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
         XFile? image = await ImageService().pickImageFromGallery();
 
         emit(ProfileImageSuccess(image: image!));
-        // await Future.delayed(Duration(seconds: 2), () {
-        //   emit(ProfileBuildInitial());
-        // });
       } catch (e) {
         print(e);
       }
     });
 
-    //   on<ImageNotNull>((event,emit){
-
-    //   })
+    on<ChangeImageEvent>((event, emit) {
+      emit(ProfileBuildInitial());
+    });
   }
 }

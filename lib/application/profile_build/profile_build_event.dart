@@ -7,6 +7,8 @@ sealed class ProfileBuildEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ChangeImageEvent extends ProfileBuildEvent {}
+
 class ProfileSaveToCredential extends ProfileBuildEvent {
   String image;
   String name;

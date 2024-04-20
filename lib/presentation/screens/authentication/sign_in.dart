@@ -9,14 +9,10 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(11.0),
-            child: SigninFields(),
-          ),
-        ),
-      ),
-    );
+        body: Center(
+            child: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.all(11.0),
+                    child: SigninFields()))));
   }
 }
