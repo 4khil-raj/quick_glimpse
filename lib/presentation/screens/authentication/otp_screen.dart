@@ -43,7 +43,11 @@ class UsingPhone extends StatelessWidget {
       }
       if (state is OtpLoadedState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavRemoveuntil(context, ProfileBuild());
+          customNavRemoveuntil(
+              context,
+              ProfileBuild(
+                usingSignup: false,
+              ));
         });
       }
       return Scaffold(

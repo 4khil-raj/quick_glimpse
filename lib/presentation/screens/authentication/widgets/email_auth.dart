@@ -54,14 +54,6 @@ class EmailAuthScreen extends StatelessWidget {
           BlocProvider.of<AuthBloc>(context).add(LoginEvent(
               email: usernameController.text.trim(),
               passcode: passwordController.text.trim()));
-
-          // try {
-          //   FirebaseAuth.instance.signInWithEmailAndPassword(
-          //       email: usernameController.text,
-          //       password: passwordController.text);
-          // } catch (e) {
-          //   print(e.toString());
-          // }
         },
         textsize: 16,
         isRow: false,

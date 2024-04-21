@@ -45,8 +45,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: event.user.email.toString(),
             password: event.user.password.toString());
         phoneController.clear();
-        emailContoller.clear();
-        usernameController.clear();
         createPasscodeController.clear();
         conformPasscodeContoller.clear();
         emit(AuthLoading());

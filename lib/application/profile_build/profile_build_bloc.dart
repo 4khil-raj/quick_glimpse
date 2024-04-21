@@ -40,9 +40,13 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
       try {
         XFile? image = await ImageService().pickImageFromGallery();
 
-        emit(ProfileImageSuccess(image: image!));
-      } catch (e) {
-        print(e);
+        if (image != null) {
+          emit(ProfileImageSuccess(image: image));
+        } else {
+          emit(ProfileBuildError(message: 'Select Your Image!!!'));
+        }
+      } on FirebaseException catch (e) {
+        emit(ProfileBuildError(message: e.message.toString()));
       }
     });
 

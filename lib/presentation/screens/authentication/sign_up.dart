@@ -9,7 +9,7 @@ import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/models/auth_model/model.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/signup_fields.dart';
-import 'package:quick_glimpse/presentation/screens/home.dart';
+import 'package:quick_glimpse/presentation/screens/profile_build/user_profile.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
 
@@ -45,7 +45,15 @@ class SignUp extends StatelessWidget {
       }
       if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavRemoveuntil(context, HomeScreen());
+          customNavRemoveuntil(
+              context,
+              ProfileBuild(
+                usingSignup: true,
+                email: emailContoller.text,
+                name: usernameController.text,
+              ));
+          usernameController.clear();
+          phoneController.clear();
         });
       } else if (state is AuthError) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
