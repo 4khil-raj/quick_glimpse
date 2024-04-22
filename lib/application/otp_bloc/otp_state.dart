@@ -29,3 +29,5 @@ class SignUpScreenOtpSuccessState extends OtpState {}
 class Loadinghome extends OtpState {}
 
 class Otploadingstate extends OtpState {}
+
+class OtpDonegotoHome extends OtpState {}

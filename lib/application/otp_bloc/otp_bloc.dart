@@ -8,10 +8,11 @@ part 'otp_state.dart';
 class OtpBloc extends Bloc<OtpEvent, OtpState> {
   String loginResult = '';
   OtpAuthModel authModel = OtpAuthModel();
-
+  bool? usercheck;
   UserCredential? userCredential;
   OtpBloc() : super(OtpInitialState()) {
     on<SendOtpPhoneEvent>((event, emit) async {
+      usercheck = await authModel.checkUser(event.phone);
       emit(OtpLoadingScreen());
       try {
         if (event.phone.isNotEmpty) {
@@ -60,7 +61,12 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
             .signInWithCredential(event.credential)
             .then((value) {
           emit(SignUpScreenOtpSuccessState());
-          emit(OtpLoadedState());
+
+          if (usercheck == true) {
+            emit(OtpDonegotoHome());
+          } else {
+            emit(OtpLoadedState());
+          }
         });
       } on FirebaseAuthException catch (e) {
         emit(OtpScreenErrorState(error: e.message.toString()));

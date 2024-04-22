@@ -7,7 +7,7 @@ class ForgetPasscodeRepo {
   final auth = FirebaseAuth.instance;
   Future<void> forgetpasscode(context, forgetEmailController) async {
     bool emailexist = true;
-    emailexist = await _checkEmailExists(forgetEmailController);
+    emailexist = await checkEmailExists(forgetEmailController);
     if (emailexist) {
       auth.sendPasswordResetEmail(email: forgetEmailController).then((value) {
         Fluttertoast.showToast(
@@ -42,7 +42,7 @@ class ForgetPasscodeRepo {
     }
   }
 
-  Future<bool> _checkEmailExists(forgetEmailController) async {
+  Future<bool> checkEmailExists(forgetEmailController) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection('users')

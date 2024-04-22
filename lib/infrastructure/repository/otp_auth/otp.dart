@@ -19,4 +19,16 @@ class OtpAuthModel {
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
   }
+
+  Future<bool> checkUser(phonenum) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('Profile')
+          .where('phone', isEqualTo: phonenum)
+          .get();
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      return false;
+    }
+  }
 }

@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:quick_glimpse/infrastructure/repository/forget_password/forget_passcoderepo.dart';
 import 'package:quick_glimpse/infrastructure/repository/image_picker/image_picker.dart';
 
 part 'profile_build_event.dart';
@@ -12,27 +13,33 @@ part 'profile_build_state.dart';
 class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
   ProfileBuildBloc() : super(ProfileBuildInitial()) {
     final user = FirebaseAuth.instance.currentUser;
+    bool usercheck;
     on<ProfileSaveToCredential>((event, emit) async {
-      try {
-        if (event.email.isNotEmpty &&
-            event.name.isNotEmpty &&
-            event.image.isNotEmpty) {
-          await FirebaseFirestore.instance
-              .collection('Profile')
-              .doc(user!.uid)
-              .set({
-            'email': event.email,
-            'name': event.name,
-            'profile_pic': event.image,
-            'phone': user.phoneNumber,
-            'bio': 'Edit the bio'
-          });
-          emit(ProfileSaveToCredentialSuccess());
-        } else {
-          emit(ProfileBuildError(message: '*Details are Required'));
+      usercheck = await ForgetPasscodeRepo().checkEmailExists(event.email);
+      if (usercheck == false) {
+        try {
+          if (event.email.isNotEmpty &&
+              event.name.isNotEmpty &&
+              event.image.isNotEmpty) {
+            await FirebaseFirestore.instance
+                .collection('Profile')
+                .doc(user!.uid)
+                .set({
+              'email': event.email,
+              'name': event.name,
+              'profile_pic': event.image,
+              'phone': user.phoneNumber,
+              'bio': 'Edit the bio'
+            });
+            emit(ProfileSaveToCredentialSuccess());
+          } else {
+            emit(ProfileBuildError(message: '*Details are Required'));
+          }
+        } on FirebaseException catch (e) {
+          emit(ProfileBuildError(message: e.message.toString()));
         }
-      } on FirebaseException catch (e) {
-        emit(ProfileBuildError(message: e.message.toString()));
+      } else {
+        emit(ProfileBuildError(message: 'The email Alredy Exist'));
       }
     });
 
