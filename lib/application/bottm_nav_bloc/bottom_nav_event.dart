@@ -11,3 +11,5 @@ class BottomNavCallEvent extends BottomNavEvent {
   int currentIndex;
   BottomNavCallEvent({required this.currentIndex});
 }
+
+class BottomImageEvent extends BottomNavEvent {}

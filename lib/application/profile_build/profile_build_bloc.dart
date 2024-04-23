@@ -1,7 +1,14 @@
+// ignore_for_file: unnecessary_string_interpolations
+
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:quick_glimpse/infrastructure/repository/forget_password/forget_passcoderepo.dart';
@@ -15,6 +22,11 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
     final user = FirebaseAuth.instance.currentUser;
     bool usercheck;
     on<ProfileSaveToCredential>((event, emit) async {
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref('${DateTime.now().millisecondsSinceEpoch.toString()}');
+      firebase_storage.UploadTask uploadTask = ref.putFile(File(event.image));
+      await uploadTask;
+      var newUrl = await ref.getDownloadURL();
       usercheck = await ForgetPasscodeRepo().checkEmailExists(event.email);
       if (usercheck == false) {
         try {
@@ -27,7 +39,7 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
                 .set({
               'email': event.email,
               'name': event.name,
-              'profile_pic': event.image,
+              'profile_pic': newUrl,
               'phone': user.phoneNumber,
               'bio': 'Edit the bio'
             });

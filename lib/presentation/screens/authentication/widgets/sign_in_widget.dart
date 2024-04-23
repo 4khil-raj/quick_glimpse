@@ -9,7 +9,7 @@ import 'package:quick_glimpse/presentation/screens/authentication/widgets/button
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/email_auth.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/loading.dart';
-import 'package:quick_glimpse/presentation/screens/home.dart';
+import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 
 class SigninFields extends StatelessWidget {
   SigninFields({
@@ -25,7 +25,7 @@ class SigninFields extends StatelessWidget {
         return LoginLoading();
       } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavPush(context, HomeScreen());
+          customNavPush(context, BottomNavigation());
         });
       } else if (state is AuthError) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,7 +58,7 @@ class SigninFields extends StatelessWidget {
                 builder: (context, state) {
               if (state is GoogleAuthenticated) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  customNavRemoveuntil(context, HomeScreen());
+                  customNavRemoveuntil(context, BottomNavigation());
                 });
               } else if (state is GoogleAuthLoading) {
                 Google = true;

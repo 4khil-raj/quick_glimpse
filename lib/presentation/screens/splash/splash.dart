@@ -5,9 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
+import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';
-import 'package:quick_glimpse/presentation/screens/home.dart';
+import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -16,10 +17,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<AuthBloc>(context).add(CheckLoginStatusEvent());
+    BlocProvider.of<BottomNavBloc>(context)
+        .add(BottomNavCallEvent(currentIndex: 0));
+
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          customNavReplacement(context, HomeScreen());
+          customNavReplacement(context, BottomNavigation());
         } else if (state is UnAuthenticated) {
           customNavReplacement(context, SignIn());
         }

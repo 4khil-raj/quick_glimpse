@@ -6,7 +6,8 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
-import 'package:quick_glimpse/presentation/screens/home.dart';
+import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
+
 import 'package:quick_glimpse/presentation/screens/profile_build/user_profile.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
@@ -53,7 +54,7 @@ class UsingPhone extends StatelessWidget {
       }
       if (state is OtpDonegotoHome) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavRemoveuntil(context, HomeScreen());
+          customNavRemoveuntil(context, BottomNavigation());
         });
       }
       return Scaffold(
