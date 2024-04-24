@@ -3,9 +3,9 @@ import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
+import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
 import 'package:quick_glimpse/application/profile_build/profile_build_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
-import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => BottomNavBloc(),
+          ),
+          BlocProvider(
+            create: (context) => AddPostBloc(),
           ),
         ],
         child: MaterialApp(

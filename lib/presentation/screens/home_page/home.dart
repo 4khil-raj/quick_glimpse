@@ -1,16 +1,28 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/appbar.dart';
-import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/timelines.dart';
 
 class UserHome extends StatelessWidget {
   const UserHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 60), child: HomeAppBar()));
+    return Scaffold(
+        appBar: const PreferredSize(
+            preferredSize: Size(double.infinity, 60), child: HomeAppBar()),
+        body: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Padding(
+              padding: const EdgeInsets.only(left: 18, top: 8),
+              child: Text(
+                'Timeline',
+                style: GoogleFonts.rubik(
+                    fontSize: 20, fontWeight: FontWeight.w600),
+              )),
+          Padding(padding: const EdgeInsets.all(10.0), child: CustomTimelines())
+        ])));
   }
 }

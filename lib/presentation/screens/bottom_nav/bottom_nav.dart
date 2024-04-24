@@ -7,6 +7,7 @@ import 'package:dynamic_curved_navigation_bar/dynamic_curved_navigation_bar.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
+import 'package:quick_glimpse/main.dart';
 import 'package:quick_glimpse/presentation/screens/add_post/add_post.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/home.dart';
 import 'package:quick_glimpse/presentation/screens/nottification_page/nottification_page.dart';
@@ -19,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
     UserHome(),
     SearchPage(),
     UserProfile(),
-    AddPost(),
+    // AddPost(),
     NottificationPage()
   ];
   String? image;
@@ -34,13 +35,16 @@ class BottomNavigation extends StatelessWidget {
         return Scaffold(
             bottomNavigationBar: DynamicCurvedNavigationBar(
               // buttonBackgroundColor: Color.fromARGB(255, 102, 182, 188),
-              color: Color.fromARGB(255, 14, 154, 140),
+              color: dark ? Colors.red : Color(0xFF2B8EE2),
               backgroundColor: Colors.transparent,
               items: [
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 16, fontWeight: FontWeight.w500),
-                  child: Icon(CupertinoIcons.home),
+                  child: Icon(
+                    Icons.home_outlined,
+                    size: 29,
+                  ),
                   label: 'Feed',
                 ),
                 DynamicCurvedNavigationBarItem(
@@ -59,12 +63,12 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   label: 'Profile',
                 ),
-                DynamicCurvedNavigationBarItem(
-                  labelStyle: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
-                  child: Icon(CupertinoIcons.photo_camera),
-                  label: 'Add',
-                ),
+                // DynamicCurvedNavigationBarItem(
+                //   labelStyle: GoogleFonts.poppins(
+                //       fontSize: 16, fontWeight: FontWeight.w500),
+                //   child: Icon(CupertinoIcons.photo_camera),
+                //   label: 'Add',
+                // ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 16, fontWeight: FontWeight.w500),
