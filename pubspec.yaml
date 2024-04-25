@@ -43,6 +43,7 @@ dependencies:
   eva_icons_flutter: ^3.1.0
   firebase_storage: ^11.7.2
   bottom_sheet: ^4.0.4
+  custom_refresh_indicator: ^3.1.0
 
 
 dev_dependencies:

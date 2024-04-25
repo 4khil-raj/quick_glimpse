@@ -4,10 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:quick_glimpse/infrastructure/repository/current_user/model.dart';
+import 'package:quick_glimpse/domain/models/current_user/model.dart';
 
 part 'bottom_nav_event.dart';
 part 'bottom_nav_state.dart';
+
+CurrentUserModel? users;
 
 class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
   BottomNavBloc() : super(BottomNavState(emittingIndex: 0)) {
@@ -27,14 +29,18 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
             .doc(user?.uid)
             .get();
         final theUser = data.data();
-        final users = CurrentUserModel(
+        users = CurrentUserModel(
             bio: theUser!['bio'],
             email: theUser['email'],
             name: theUser['name'],
             phone: theUser['phone'],
-            profile: theUser['profile_pic']);
+            followers: theUser['followers'],
+            following: theUser['following'],
+            post: theUser['post'],
+            profile: theUser['profile_pic'],
+            uid: theUser['uid']);
 
-        emit(BottomImageState(profile: users.profile));
+        emit(BottomImageState(profile: users!.profile));
       },
     );
   }

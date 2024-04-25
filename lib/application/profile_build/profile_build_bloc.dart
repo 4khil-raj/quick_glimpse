@@ -41,7 +41,11 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
               'name': event.name,
               'profile_pic': newUrl,
               'phone': user.phoneNumber,
-              'bio': 'Edit the bio'
+              'bio': 'Edit the bio',
+              'following': 0,
+              'followers': 0,
+              'post': 0,
+              'uid': user.uid
             });
             emit(ProfileSaveToCredentialSuccess());
           } else {

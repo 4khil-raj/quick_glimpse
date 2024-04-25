@@ -7,25 +7,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/bottomsheet.dart';
+import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 
 class AddPost extends StatelessWidget {
-  AddPost({super.key});
+  const AddPost({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String? Image;
+    String? image;
     final captionController = TextEditingController();
     bool selected = false;
     return BlocBuilder<AddPostBloc, AddPostState>(
       builder: (context, state) {
         if (state is ImageGallerySuccess) {
-          Image = state.image.path;
+          image = state.image.path;
           selected = true;
         } else if (state is ImageCameraSuccess) {
-          Image = state.image.path;
+          image = state.image.path;
           selected = true;
+        } else if (state is PostErrorState) {
+          alerts(context, state.messege);
         }
         return Scaffold(
           appBar: AppBar(
@@ -54,7 +57,7 @@ class AddPost extends StatelessWidget {
                                       fit: BoxFit.cover,
                                       image: FileImage(
                                         File(
-                                          Image!,
+                                          image!,
                                         ),
                                       ))
                                   : DecorationImage(
@@ -76,11 +79,17 @@ class AddPost extends StatelessWidget {
                         height: 10,
                       ),
                       customButton(
-                        onTap: () => BlocProvider.of<AddPostBloc>(context).add(
-                            NewPostEvent(
-                                caption: captionController.text,
-                                image: Image!,
-                                like: '0')),
+                        onTap: () {
+                          if (image != null) {
+                            BlocProvider.of<AddPostBloc>(context).add(
+                                NewPostEvent(
+                                    caption: captionController.text,
+                                    image: image!,
+                                    like: '0'));
+                          } else {
+                            alerts(context, 'Select Image');
+                          }
+                        },
                         isRow: false,
                         borderclr: Colors.transparent,
                         color: Colors.black,

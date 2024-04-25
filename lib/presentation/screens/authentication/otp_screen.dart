@@ -9,6 +9,7 @@ import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 
 import 'package:quick_glimpse/presentation/screens/profile_build/user_profile.dart';
+import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 import 'package:timer_button/timer_button.dart';
@@ -30,17 +31,7 @@ class UsingPhone extends StatelessWidget {
         isReq = true;
       } else if (state is OtpScreenErrorState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                    content: Text(state.error.toString()),
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text('ok'))
-                    ]);
-              });
+          alerts(context, state.error);
         });
       }
       if (state is OtpLoadedState) {

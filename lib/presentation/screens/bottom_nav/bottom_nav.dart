@@ -34,6 +34,7 @@ class BottomNavigation extends StatelessWidget {
         }
         return Scaffold(
             bottomNavigationBar: DynamicCurvedNavigationBar(
+              // buttonBackgroundColor: Colors.transparent,
               // buttonBackgroundColor: Color.fromARGB(255, 102, 182, 188),
               color: dark ? Colors.red : Color(0xFF2B8EE2),
               backgroundColor: Colors.transparent,

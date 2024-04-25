@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
+// import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/image_picker/image_picker.dart';
 import 'package:quick_glimpse/infrastructure/repository/post_photo/post.dart';
 
@@ -45,15 +47,22 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
     on<NewPostEvent>((event, emit) async {
       try {
         var imagelink = await PhotoPostRepo().postPhoto(event.image);
-        User? user = FirebaseAuth.instance.currentUser;
-        FirebaseFirestore.instance.collection('post').doc('allpost').set({
-          'image': imagelink,
-          'user': user,
-          'caption': event.caption,
-          'like': '0'
-        });
-      } catch (e) {
-        print(e.toString());
+        // final user = FirebaseAuth.instance.currentUser;
+
+        if (imagelink.isEmpty && event.caption.isEmpty) {
+          emit(PostErrorState(messege: 'Fill all details'));
+        } else {
+          FirebaseFirestore.instance.collection('post').doc().set({
+            'image': imagelink,
+            'uid': users!.uid,
+            'name': users!.name,
+            'userprofile': users!.profile,
+            'caption': event.caption,
+            'like': 0,
+          });
+        }
+      } on FirebaseException catch (e) {
+        emit(PostErrorState(messege: e.message.toString()));
       }
     });
   }
