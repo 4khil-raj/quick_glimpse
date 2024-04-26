@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
+import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/core/route/custom_navigator.dart';
 import 'package:quick_glimpse/main.dart';
 import 'package:quick_glimpse/presentation/screens/add_post/add_post.dart';
@@ -29,18 +30,21 @@ class HomeAppBar extends StatelessWidget {
               BlocProvider.of<AddPostBloc>(context).add(ChangeImageEvent());
               customNavPush(context, AddPost());
             },
-            icon: const Icon(CupertinoIcons.camera)),
+            icon: const Icon(
+              CupertinoIcons.camera,
+              color: Colors.black,
+            )),
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: InkWell(
-            onTap: () {},
-            child: const CircleAvatar(
-              radius: 13,
-              backgroundImage: AssetImage(
-                'assets/images/e264d8a4-b760-43c7-8fdc-a7c14278efd3.jpg',
-              ),
-            ),
-          ),
+          child: IconButton(
+              onPressed: () {
+                //refresh just change the code
+                BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
+              },
+              icon: const Icon(
+                CupertinoIcons.mail,
+                color: Colors.black,
+              )),
         )
       ],
     );

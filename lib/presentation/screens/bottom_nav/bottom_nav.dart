@@ -16,7 +16,7 @@ import 'package:quick_glimpse/presentation/screens/user_profile/user_profile.dar
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({super.key});
-  List screens = const [
+  List screens = [
     UserHome(),
     SearchPage(),
     UserProfile(),
@@ -34,14 +34,15 @@ class BottomNavigation extends StatelessWidget {
         }
         return Scaffold(
             bottomNavigationBar: DynamicCurvedNavigationBar(
+              height: 60,
               // buttonBackgroundColor: Colors.transparent,
               // buttonBackgroundColor: Color.fromARGB(255, 102, 182, 188),
               color: dark ? Colors.red : Color(0xFF2B8EE2),
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.black,
               items: [
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                   child: Icon(
                     Icons.home_outlined,
                     size: 29,
@@ -50,29 +51,29 @@ class BottomNavigation extends StatelessWidget {
                 ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                   child: Icon(CupertinoIcons.search),
                   label: 'Search',
                 ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(image ??
                         'https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o='),
                     radius: 20,
                   ),
-                  label: 'Profile',
+                  label: 'Me',
                 ),
                 // DynamicCurvedNavigationBarItem(
                 //   labelStyle: GoogleFonts.poppins(
-                //       fontSize: 16, fontWeight: FontWeight.w500),
+                //       fontSize: 14, fontWeight: FontWeight.w500),
                 //   child: Icon(CupertinoIcons.photo_camera),
                 //   label: 'Add',
                 // ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                   child: Icon(CupertinoIcons.bell),
                   label: 'Alerts',
                 ),

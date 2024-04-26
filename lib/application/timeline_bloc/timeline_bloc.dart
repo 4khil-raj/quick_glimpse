@@ -15,12 +15,16 @@ class TimelineBloc extends Bloc<TimelineEvent, TimelineState> {
     //   add(TimelineShowEvent());
     // });
     on<TimelineShowEvent>((event, emit) async {
+      emit(TimelineInitial());
+      await Future.delayed(Duration(seconds: 1));
       try {
         TimelineRepo rep = TimelineRepo();
         final feeds = await rep.getTimeline();
-        // print(feeds!.length);
-
-        emit(TimeLineLoadSuccessState(timeline: feeds));
+        if (feeds.isEmpty) {
+          emit(TimelineErrorState(msg: 'Can\'t load now'));
+        } else {
+          emit(TimeLineLoadSuccessState(timeline: feeds));
+        }
       } on FirebaseException catch (e) {
         emit(TimelineErrorState(msg: e.message.toString()));
       }

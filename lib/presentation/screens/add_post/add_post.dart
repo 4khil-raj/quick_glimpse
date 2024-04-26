@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
+import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/add_post/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/bottomsheet.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 
 class AddPost extends StatelessWidget {
-  const AddPost({super.key});
-
+  AddPost({super.key});
+  bool postReq = false;
   @override
   Widget build(BuildContext context) {
     String? image;
@@ -29,6 +31,14 @@ class AddPost extends StatelessWidget {
           selected = true;
         } else if (state is PostErrorState) {
           alerts(context, state.messege);
+          postReq = false;
+        } else if (state is PostButtonPressState) {
+          postReq = true;
+        } else if (state is PostDoneState) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
+            Navigator.pop(context);
+          });
         }
         return Scaffold(
           appBar: AppBar(
@@ -78,28 +88,10 @@ class AddPost extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      customButton(
-                        onTap: () {
-                          if (image != null) {
-                            BlocProvider.of<AddPostBloc>(context).add(
-                                NewPostEvent(
-                                    caption: captionController.text,
-                                    image: image!,
-                                    like: '0'));
-                          } else {
-                            alerts(context, 'Select Image');
-                          }
-                        },
-                        isRow: false,
-                        borderclr: Colors.transparent,
-                        color: Colors.black,
-                        height: 40,
-                        name: 'Post',
-                        textsize: 15,
-                        radius: 20,
-                        width: 100,
-                        textclr: Colors.white,
-                      )
+                      PostButtons(
+                          postReq: postReq,
+                          image: image,
+                          captionController: captionController)
                     ]),
               ),
             ),

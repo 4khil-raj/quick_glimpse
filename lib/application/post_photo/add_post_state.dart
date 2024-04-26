@@ -23,3 +23,7 @@ class PostErrorState extends AddPostState {
   String messege;
   PostErrorState({required this.messege});
 }
+
+class PostButtonPressState extends AddPostState {}
+
+class PostDoneState extends AddPostState {}

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quick_glimpse/domain/models/timeline/model.dart';
 
@@ -10,6 +12,7 @@ class TimelineRepo {
         final theUser = element.data();
 
         TimelineModel model = TimelineModel(
+            time: theUser['time'],
             caption: theUser['caption'],
             image: theUser['image'],
             like: theUser['like'],
@@ -21,7 +24,7 @@ class TimelineRepo {
 
       return timelines;
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
     return timelines;
   }

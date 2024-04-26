@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 // import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/image_picker/image_picker.dart';
@@ -45,6 +46,7 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
     });
 
     on<NewPostEvent>((event, emit) async {
+      emit(PostButtonPressState());
       try {
         var imagelink = await PhotoPostRepo().postPhoto(event.image);
         // final user = FirebaseAuth.instance.currentUser;
@@ -59,7 +61,9 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
             'userprofile': users!.profile,
             'caption': event.caption,
             'like': 0,
+            'time': DateFormat('dd/MM/yy HH:mm').format(DateTime.now())
           });
+          emit(PostDoneState());
         }
       } on FirebaseException catch (e) {
         emit(PostErrorState(messege: e.message.toString()));
