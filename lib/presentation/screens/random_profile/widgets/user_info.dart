@@ -1,8 +1,9 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/widgets/grid_post.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 
 class CustomUserInfo extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomUserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 11, right: 15),
+        padding: const EdgeInsets.only(left: 11, right: 15, bottom: 8),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             CircleAvatar(
@@ -23,7 +24,7 @@ class CustomUserInfo extends StatelessWidget {
             ),
             Column(children: [
               Text(
-                state.user.post.toString(),
+                state.post.length.toString(),
                 style: GoogleFonts.rubik(
                     fontSize: 16, fontWeight: FontWeight.w400),
               ),
@@ -61,7 +62,7 @@ class CustomUserInfo extends StatelessWidget {
             borderclr: Colors.black,
             color: Colors.black,
             height: 40,
-            name: 'Edit Profile',
+            name: 'Follow',
             radius: 20,
             textclr: Colors.white,
             width: double.infinity,
@@ -79,22 +80,9 @@ class CustomUserInfo extends StatelessWidget {
                   fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
-          SizedBox(
-              height: 200,
-              child: GridView.builder(
-                  itemCount: state.post.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, // Number of columns
-                    crossAxisSpacing: 5.0, // Spacing between columns
-                    mainAxisSpacing: 5.0, // Spacing between rows
-                  ),
-                  itemBuilder: (context, index) {
-                    return GridTile(
-                        child: Image.network(
-                      state.post[index].image,
-                      fit: BoxFit.cover,
-                    ));
-                  }))
+          RandomPostGridView(
+            state: state,
+          ),
         ]));
   }
 }

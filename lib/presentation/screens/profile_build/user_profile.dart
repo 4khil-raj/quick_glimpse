@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/application/profile_build/profile_build_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:quick_glimpse/presentation/screens/profile_build/widgets/using_otp.dart';
 import 'package:quick_glimpse/presentation/screens/profile_build/widgets/using_signUp.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/forget_passcode.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';

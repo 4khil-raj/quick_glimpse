@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/widgets/simmer.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/widgets/user_info.dart';
 
 class RandomProfile extends StatelessWidget {
@@ -24,7 +25,7 @@ class RandomProfile extends StatelessWidget {
               state: state,
             );
           }
-          return CircularProgressIndicator();
+          return RandomProfileShimmer();
         }));
   }
 }

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';
 import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';

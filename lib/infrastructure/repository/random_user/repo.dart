@@ -6,8 +6,6 @@ import 'package:quick_glimpse/domain/models/timeline/model.dart';
 
 class RandomUserRepo {
   Future<List<RandomUserModel>> findRandomUser(String email) async {
-    print(email);
-    print('printed');
     List<RandomUserModel> randomuser = [];
     try {
       final querySnapshot = await FirebaseFirestore.instance
@@ -53,7 +51,7 @@ class RandomUserRepo {
       });
       return posts;
     } catch (e) {
-      return posts;
+      return [];
     }
   }
 }

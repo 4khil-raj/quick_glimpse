@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/domain/validations/formfield_validation.dart';
 import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 

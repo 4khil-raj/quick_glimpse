@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/widgets/email_auth.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_up.dart';

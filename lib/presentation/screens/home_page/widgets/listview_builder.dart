@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
-import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 

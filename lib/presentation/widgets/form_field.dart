@@ -7,9 +7,11 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final Function(String)? onChanged;
   final String? Function(String?)? validator; // Validator function
+  final int? maxlength;
 
   const CustomTextFormField({
     Key? key,
+    this.maxlength,
     required this.hintText,
     required this.controller,
     this.keyboardType = TextInputType.text,
@@ -21,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxlength,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
