@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/core/route/custom_navigator.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 
 class TimelineBuilder extends StatelessWidget {
@@ -10,8 +14,9 @@ class TimelineBuilder extends StatelessWidget {
   TimeLineLoadSuccessState state;
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<RandomProfileBloc>(context).add(RandomProfileEvent());
     return SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height - 180,
         child: ListView.builder(
             itemCount: state.timeline.length,
             itemBuilder: (context, index) {
@@ -23,6 +28,16 @@ class TimelineBuilder extends StatelessWidget {
                           topRight: Radius.circular(20)),
                     ),
                     child: ListTile(
+                      onTap: () {
+                        customNavPush(
+                            context,
+                            RandomProfile(
+                              username: state.timeline[index].username,
+                              uid: state.timeline[index].uid,
+                            ));
+                        BlocProvider.of<RandomProfileBloc>(context).add(
+                            GetRandomUser(email: state.timeline[index].uid));
+                      },
                       leading: CircleAvatar(
                         backgroundImage:
                             NetworkImage(state.timeline[index].userImage),

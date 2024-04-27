@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/main.dart';
-import 'package:quick_glimpse/presentation/screens/add_post/add_post.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/home.dart';
 import 'package:quick_glimpse/presentation/screens/nottification_page/nottification_page.dart';
 import 'package:quick_glimpse/presentation/screens/search/search.dart';
@@ -16,13 +15,7 @@ import 'package:quick_glimpse/presentation/screens/user_profile/user_profile.dar
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({super.key});
-  List screens = [
-    UserHome(),
-    SearchPage(),
-    UserProfile(),
-    // AddPost(),
-    NottificationPage()
-  ];
+  List screens = [UserHome(), SearchPage(), UserProfile(), NottificationPage()];
   String? image;
   @override
   Widget build(BuildContext context) {
@@ -65,12 +58,6 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   label: 'Me',
                 ),
-                // DynamicCurvedNavigationBarItem(
-                //   labelStyle: GoogleFonts.poppins(
-                //       fontSize: 14, fontWeight: FontWeight.w500),
-                //   child: Icon(CupertinoIcons.photo_camera),
-                //   label: 'Add',
-                // ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.w500),

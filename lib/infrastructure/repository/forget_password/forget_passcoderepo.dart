@@ -45,7 +45,7 @@ class ForgetPasscodeRepo {
   Future<bool> checkEmailExists(forgetEmailController) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
+          .collection('Profile')
           .where('email', isEqualTo: forgetEmailController)
           .get();
 

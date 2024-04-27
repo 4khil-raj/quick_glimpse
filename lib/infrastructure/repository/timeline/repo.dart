@@ -10,7 +10,6 @@ class TimelineRepo {
       final data = await FirebaseFirestore.instance.collection('post').get();
       for (var element in data.docs) {
         final theUser = element.data();
-
         TimelineModel model = TimelineModel(
             time: theUser['time'],
             caption: theUser['caption'],

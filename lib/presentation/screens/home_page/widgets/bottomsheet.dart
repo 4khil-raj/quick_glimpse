@@ -9,35 +9,30 @@ void ShowBottomSheet(context) {
       context: context,
       builder: (context) {
         return Container(
-          height: 150,
-          child: Column(
-            children: [
+            height: 150,
+            child: Column(children: [
               Padding(
-                padding: EdgeInsets.only(top: 10, left: 14),
-                child: ListTile(
-                  onTap: () {
-                    BlocProvider.of<AddPostBloc>(context)
-                        .add(ImagePickGalleryEvent());
-                    Navigator.pop(context);
-                  },
-                  title: Text('Gallery'),
-                  leading: Icon(Icons.image_rounded),
-                ),
-              ),
+                  padding: EdgeInsets.only(top: 10, left: 14),
+                  child: ListTile(
+                    onTap: () {
+                      BlocProvider.of<AddPostBloc>(context)
+                          .add(ImagePickGalleryEvent());
+                      Navigator.pop(context);
+                    },
+                    title: Text('Gallery'),
+                    leading: Icon(Icons.image_rounded),
+                  )),
               Padding(
-                padding: EdgeInsets.only(top: 10, left: 14),
-                child: ListTile(
-                  onTap: () {
-                    BlocProvider.of<AddPostBloc>(context)
-                        .add(ImagePickCameraEvent());
-                    Navigator.pop(context);
-                  },
-                  title: Text('Camera'),
-                  leading: Icon(Icons.camera),
-                ),
-              ),
-            ],
-          ),
-        );
+                  padding: EdgeInsets.only(top: 10, left: 14),
+                  child: ListTile(
+                    onTap: () {
+                      BlocProvider.of<AddPostBloc>(context)
+                          .add(ImagePickCameraEvent());
+                      Navigator.pop(context);
+                    },
+                    title: Text('Camera'),
+                    leading: Icon(Icons.camera),
+                  ))
+            ]));
       });
 }

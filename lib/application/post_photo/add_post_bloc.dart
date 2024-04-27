@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -49,14 +50,13 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
       emit(PostButtonPressState());
       try {
         var imagelink = await PhotoPostRepo().postPhoto(event.image);
-        // final user = FirebaseAuth.instance.currentUser;
-
         if (imagelink.isEmpty && event.caption.isEmpty) {
           emit(PostErrorState(messege: 'Fill all details'));
         } else {
+          User? user = await FirebaseAuth.instance.currentUser;
           FirebaseFirestore.instance.collection('post').doc().set({
             'image': imagelink,
-            'uid': users!.uid,
+            'uid': user!.uid,
             'name': users!.name,
             'userprofile': users!.profile,
             'caption': event.caption,

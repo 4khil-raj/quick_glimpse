@@ -34,7 +34,11 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
           'name': user.displayName,
           'profile_pic': user.photoURL,
           'phone': user.phoneNumber,
-          'bio': 'Edit the bio'
+          'bio': 'Edit the bio',
+          'uid': user.uid,
+          'followers': 0,
+          'following': 0,
+          'post': 0
         });
 
         emit(GoogleAuthenticated());

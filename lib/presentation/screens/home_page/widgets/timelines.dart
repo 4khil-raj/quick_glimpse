@@ -15,8 +15,7 @@ class CustomTimelines extends StatelessWidget {
       builder: (context, state) {
         if (state is TimelineErrorState) {
           return HomeError(state: state);
-        }
-        if (state is TimeLineLoadSuccessState) {
+        } else if (state is TimeLineLoadSuccessState) {
           return TimelineBuilder(state: state);
         }
         return HomeShimmer();
