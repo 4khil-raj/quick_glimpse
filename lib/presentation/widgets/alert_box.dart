@@ -9,3 +9,23 @@ void alerts(context, String msg) {
         ]);
       });
 }
+
+void alertsWithButtons(context, String msg, Function function) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: Text(msg),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context), child: const Text('No')),
+          TextButton(
+              onPressed: () {
+                function();
+              },
+              child: const Text('Yes'))
+        ],
+      );
+    },
+  );
+}

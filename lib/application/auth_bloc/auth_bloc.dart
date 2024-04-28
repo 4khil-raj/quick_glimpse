@@ -57,8 +57,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             'phone': event.user.phone,
             'uid': user.uid
           });
-
-          emit(Authenticated(user: user));
+//changed
+          emit(SignUpAuthSuccessState(user: user));
         } else {
           emit(AuthError(message: 'Fill All details'));
         }

@@ -10,6 +10,7 @@ import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quick_glimpse/presentation/screens/user_profile/user_profile.dart';
 import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             // useMaterial3: true,
           ),
-          home: SplashScreen(),
+          home: const SplashScreen(),
         ));
   }
 }

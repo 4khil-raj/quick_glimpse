@@ -25,7 +25,7 @@ class SigninFields extends StatelessWidget {
         return LoginLoading();
       } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          customNavPush(context, BottomNavigation());
+          customNavRemoveuntil(context, BottomNavigation());
         });
       } else if (state is AuthError) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

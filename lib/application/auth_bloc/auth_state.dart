@@ -16,6 +16,11 @@ class Authenticated extends AuthState {
   Authenticated({this.user});
 }
 
+class SignUpAuthSuccessState extends AuthState {
+  User? user;
+  SignUpAuthSuccessState({required this.user});
+}
+
 class UnAuthenticated extends AuthState {}
 
 class AuthError extends AuthState {

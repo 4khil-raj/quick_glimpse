@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/widgets/simmer_container.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeShimmer extends StatelessWidget {
@@ -18,9 +20,15 @@ class HomeShimmer extends StatelessWidget {
                   return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(children: [
-                        const ListTile(
+                        ListTile(
                           leading: CircleAvatar(),
-                          title: Text('loading'),
+                          title: Padding(
+                            padding: const EdgeInsets.only(right: 100),
+                            child: ShimmerTextHelper(
+                              length: 20,
+                              width: double.infinity,
+                            ),
+                          ),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(
@@ -33,14 +41,27 @@ class HomeShimmer extends StatelessWidget {
                             )),
                         SizedBox(
                           height: 20,
+                          width: 10,
                         ),
                         Row(children: const [
                           Icon(Icons.favorite),
                           SizedBox(
                             width: 20,
                           ),
-                          Text('loading....')
-                        ])
+                          ShimmerTextHelper(
+                            length: 20,
+                            width: 150,
+                          ),
+                        ]),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 60, right: 60),
+                          child: Divider(
+                            thickness: 2,
+                          ),
+                        )
                       ]));
                 })));
   }

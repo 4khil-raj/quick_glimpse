@@ -24,6 +24,6 @@ class RandomPostGridView extends StatelessWidget {
                     fit: BoxFit.cover,
                   ));
                 }))
-        : const Center(child: Text('No post Found'));
+        : const Center(child: Text('No post Found!'));
   }
 }

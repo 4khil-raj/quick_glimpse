@@ -41,7 +41,7 @@ class ProfileBuildBloc extends Bloc<ProfileBuildEvent, ProfileBuildState> {
               'name': event.name,
               'profile_pic': newUrl,
               'phone': user.phoneNumber,
-              'bio': 'Edit the bio',
+              'bio': 'Hy👋 Iam ${event.name}',
               'following': 0,
               'followers': 0,
               'post': 0,

@@ -48,8 +48,16 @@ class ForgetPasscodeRepo {
           .collection('Profile')
           .where('email', isEqualTo: forgetEmailController)
           .get();
+      final querySnapshot1 = await FirebaseFirestore.instance
+          .collection('user')
+          .where('email', isEqualTo: forgetEmailController)
+          .get();
+      if (querySnapshot1.docs.isEmpty && querySnapshot.docs.isEmpty) {
+        return false;
+      }
+      return true;
 
-      return querySnapshot.docs.isNotEmpty;
+      // return querySnapshot.docs.isNotEmpty == querySnapshot1.docs.isNotEmpty;
     } catch (e) {
       return false;
     }

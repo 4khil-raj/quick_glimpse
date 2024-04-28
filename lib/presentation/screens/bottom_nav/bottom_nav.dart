@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:dynamic_curved_navigation_bar/dynamic_curved_navigation_bar_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,8 +45,8 @@ class BottomNavigation extends StatelessWidget {
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.w500),
-                  child: Icon(CupertinoIcons.search),
-                  label: 'Search',
+                  child: Icon(Icons.explore_outlined),
+                  label: 'Explore',
                 ),
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
@@ -61,7 +61,7 @@ class BottomNavigation extends StatelessWidget {
                 DynamicCurvedNavigationBarItem(
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.w500),
-                  child: Icon(CupertinoIcons.bell),
+                  child: Icon(Icons.flash_on_rounded),
                   label: 'Alerts',
                 ),
               ],

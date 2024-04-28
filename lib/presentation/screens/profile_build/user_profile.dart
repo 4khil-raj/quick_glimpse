@@ -32,7 +32,7 @@ class ProfileBuild extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           BlocProvider.of<BottomNavBloc>(context)
               .add(BottomNavCallEvent(currentIndex: 0));
-          customNavPush(context, BottomNavigation());
+          customNavRemoveuntil(context, BottomNavigation());
         });
       }
       if (state is ProfileBuildError) {

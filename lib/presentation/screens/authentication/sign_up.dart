@@ -43,7 +43,7 @@ class SignUp extends StatelessWidget {
           ),
         );
       }
-      if (state is Authenticated) {
+      if (state is SignUpAuthSuccessState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           customNavRemoveuntil(
               context,
