@@ -11,9 +11,9 @@ class ExploreGridView extends StatelessWidget {
     return GridView.builder(
         itemCount: state.timeline.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Number of columns
-          crossAxisSpacing: 5.0, // Spacing between columns
-          mainAxisSpacing: 5.0, // Spacing between rows
+          crossAxisCount: 3,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
         ),
         itemBuilder: (context, index) {
           return GridTile(

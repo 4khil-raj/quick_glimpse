@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/main.dart';
 import 'package:quick_glimpse/presentation/screens/add_post/add_post.dart';
@@ -38,8 +39,7 @@ class HomeAppBar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
               onPressed: () {
-                //refresh just change the code
-                BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
+                customNavPush(context, ChatScreen());
               },
               icon: const Icon(
                 CupertinoIcons.mail,

@@ -33,7 +33,7 @@ class UserHome extends StatelessWidget {
                         fontSize: 20, fontWeight: FontWeight.w600),
                   )),
               Padding(
-                  padding: const EdgeInsets.all(10.0), child: CustomTimelines())
+                  padding: const EdgeInsets.all(5.0), child: CustomTimelines())
             ]),
           ),
         ));
