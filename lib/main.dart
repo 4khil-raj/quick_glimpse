@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
+import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => EditDeleteBloc(),
+          ),
           BlocProvider(
             create: (context) => AuthBloc(),
           ),

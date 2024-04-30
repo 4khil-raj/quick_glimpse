@@ -14,7 +14,6 @@ class RandomProfileBloc extends Bloc<RandomProfileEvent, RandomProfileState> {
     });
     on<GetRandomUser>((event, emit) async {
       try {
-        await Future.delayed(const Duration(seconds: 1));
         final user = await RandomUserRepo().findRandomUser(event.email);
         final posts = await RandomUserRepo().getRandomUserPosts(event.email);
         if (user.isEmpty) {

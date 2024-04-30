@@ -12,7 +12,7 @@ class UserDetailsProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Column(children: [
@@ -77,7 +77,7 @@ class UserDetailsProfile extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          RandomPostGridView(state: state)
+          RandomPostGridView(isUser: true, state: state)
         ]));
   }
 }

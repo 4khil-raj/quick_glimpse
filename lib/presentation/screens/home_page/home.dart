@@ -12,30 +12,34 @@ class UserHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
-    return Scaffold(
-        backgroundColor: Color.fromARGB(255, 105, 171, 209),
-        appBar: const PreferredSize(
-            preferredSize: Size(double.infinity, 60), child: HomeAppBar()),
-        body: SingleChildScrollView(
-          child: RefreshIndicator(
-            color: Colors.white,
-            backgroundColor: Colors.black,
-            onRefresh: () async {
-              BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
-            },
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 18, top: 8),
-                  child: Text(
-                    'Timeline',
-                    style: GoogleFonts.rubik(
-                        fontSize: 20, fontWeight: FontWeight.w600),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.all(5.0), child: CustomTimelines())
-            ]),
-          ),
-        ));
+    return SafeArea(
+      child: Scaffold(
+          // backgroundColor: Color.fromARGB(255, 105, 171, 209),
+          appBar: const PreferredSize(
+              preferredSize: Size(double.infinity, 60), child: HomeAppBar()),
+          body: SingleChildScrollView(
+            child: RefreshIndicator(
+              color: Colors.white,
+              backgroundColor: Colors.black,
+              onRefresh: () async {
+                BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
+              },
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(left: 18, top: 8),
+                        child: Text(
+                          'Timeline',
+                          style: GoogleFonts.rubik(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: CustomTimelines())
+                  ]),
+            ),
+          )),
+    );
   }
 }

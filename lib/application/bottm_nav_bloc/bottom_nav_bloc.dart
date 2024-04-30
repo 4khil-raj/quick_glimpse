@@ -40,7 +40,7 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
             profile: theUser['profile_pic'],
             uid: theUser['uid']);
 
-        emit(BottomImageState(profile: users!.profile));
+        emit(BottomImageState(profile: users!.profile, name: users!.name));
       },
     );
   }

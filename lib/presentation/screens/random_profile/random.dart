@@ -13,7 +13,7 @@ class RandomProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<RandomProfileBloc>(context).add(GetRandomUser(email: uid));
+    // BlocProvider.of<RandomProfileBloc>(context).add(GetRandomUser(email: uid));
     return Scaffold(
         appBar: AppBar(
           title: Text(username),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/widgets/simmer_container.dart';
@@ -37,7 +38,7 @@ class HomeShimmer extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Colors.white),
-                              height: 250,
+                              height: 350,
                             )),
                         SizedBox(
                           height: 20,
@@ -45,6 +46,10 @@ class HomeShimmer extends StatelessWidget {
                         ),
                         Row(children: const [
                           Icon(Icons.favorite),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(CupertinoIcons.chat_bubble_text),
                           SizedBox(
                             width: 20,
                           ),

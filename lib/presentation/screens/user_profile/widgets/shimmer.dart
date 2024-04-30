@@ -14,7 +14,7 @@ class CurrentUserShimmerEffect extends StatelessWidget {
       baseColor: const Color.fromARGB(255, 136, 134, 134),
       highlightColor: const Color.fromARGB(255, 255, 255, 255),
       child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
           child: Column(children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Column(children: [

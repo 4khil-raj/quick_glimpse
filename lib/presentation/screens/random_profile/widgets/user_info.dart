@@ -81,6 +81,7 @@ class CustomUserInfo extends StatelessWidget {
             ),
           ),
           RandomPostGridView(
+            isUser: false,
             state: state,
           ),
         ]));

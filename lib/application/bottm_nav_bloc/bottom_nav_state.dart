@@ -12,5 +12,7 @@ class BottomNavState {
 // }
 class BottomImageState extends BottomNavState {
   String? profile;
-  BottomImageState({required this.profile}) : super(emittingIndex: 0);
+  String? name;
+  BottomImageState({required this.profile, this.name})
+      : super(emittingIndex: 0);
 }
