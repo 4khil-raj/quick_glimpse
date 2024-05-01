@@ -3,8 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 
@@ -38,13 +40,24 @@ class ViewPostUsingExplorer extends StatelessWidget {
                   BlocProvider.of<RandomProfileBloc>(context)
                       .add(GetRandomUser(email: state.timeline[index].uid));
                 },
-                trailing: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.download_rounded)),
+                trailing: SaveButtonTimeline(value: state, index: index),
                 leading: CircleAvatar(
                   backgroundImage:
                       NetworkImage(state.timeline[index].userImage),
                 ),
-                title: Text(state.timeline[index].username),
+                title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state.timeline[index].username,
+                        style: GoogleFonts.rubik(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        state.timeline[index].time,
+                        style: const TextStyle(fontSize: 10),
+                      )
+                    ]),
               ),
             ),
             Padding(

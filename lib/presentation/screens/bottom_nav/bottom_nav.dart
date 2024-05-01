@@ -39,7 +39,7 @@ class BottomNavigation extends StatelessWidget {
               items: [
                 /// Home
                 SalomonBottomBarItem(
-                  icon: Icon(Icons.home),
+                  icon: Icon(Icons.home_rounded),
                   title: Text("Home"),
                   selectedColor: const Color.fromARGB(255, 218, 5, 255),
                 ),

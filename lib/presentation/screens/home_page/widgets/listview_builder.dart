@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/application/save_post/save_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/list_tile.dart';
 
 class TimelineBuilder extends StatelessWidget {
@@ -43,7 +45,11 @@ class TimelineBuilder extends StatelessWidget {
                       )),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(CupertinoIcons.chat_bubble_text)),
+                      icon: Icon(
+                        CupertinoIcons.chat_bubble_text,
+                        size: 26,
+                      )),
+                  SaveButtonTimeline(value: state, index: index),
                   SizedBox(
                       width: 200, child: Text(state.timeline[index].caption))
                 ]),

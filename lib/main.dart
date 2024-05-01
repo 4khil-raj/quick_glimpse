@@ -7,11 +7,11 @@ import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
 import 'package:quick_glimpse/application/post_photo/add_post_bloc.dart';
 import 'package:quick_glimpse/application/profile_build/profile_build_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/application/save_post/save_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/infrastructure/repository/google_auth/google_auth.dart';
 import 'package:quick_glimpse/presentation/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:quick_glimpse/presentation/screens/user_profile/user_profile.dart';
 import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,6 +34,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => EditDeleteBloc(),
+          ),
+          BlocProvider(
+            create: (context) => SavePostBloc(),
           ),
           BlocProvider(
             create: (context) => AuthBloc(),

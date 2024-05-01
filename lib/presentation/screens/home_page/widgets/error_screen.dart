@@ -18,9 +18,10 @@ class HomeError extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 10,
+              height: 40,
             ),
             Image.asset(
+                height: 400,
                 'assets/images/Duck Waddling Sticker - Duck Waddling - Discover & Share GIFs.gif'),
             SizedBox(
               height: 12,

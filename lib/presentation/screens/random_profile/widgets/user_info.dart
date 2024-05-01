@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, must_be_immutable
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
@@ -80,9 +81,11 @@ class CustomUserInfo extends StatelessWidget {
                   fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
-          RandomPostGridView(
-            isUser: false,
-            state: state,
+          Expanded(
+            child: RandomPostGridView(
+              isUser: false,
+              state: state,
+            ),
           ),
         ]));
   }

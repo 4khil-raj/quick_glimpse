@@ -54,4 +54,28 @@ class RandomUserRepo {
       return [];
     }
   }
+
+  Future<List<TimelineModel>> getSavedPost(String currentUid) async {
+    List<TimelineModel> savedItems = [];
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('saved_post')
+          .where('currentUser', isEqualTo: currentUid)
+          .get();
+      querySnapshot.docs.forEach((element) {
+        TimelineModel model = TimelineModel(
+            caption: element['caption'],
+            time: element['time'],
+            image: element['image'],
+            like: element['like'],
+            uid: element['uid'],
+            userImage: element['userprofile'],
+            username: element['name']);
+        savedItems.add(model);
+      });
+      return savedItems;
+    } catch (e) {
+      return [];
+    }
+  }
 }

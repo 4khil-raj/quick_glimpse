@@ -10,9 +10,10 @@ sealed class RandomProfileState extends Equatable {
 final class RandomProfileInitial extends RandomProfileState {}
 
 class UserFoundSuccessState extends RandomProfileState {
-  UserFoundSuccessState({required this.user, required this.post});
+  UserFoundSuccessState({required this.user, required this.post, this.saved});
   RandomUserModel user;
   List<TimelineModel> post;
+  List<TimelineModel>? saved;
 }
 
 class RandomUserErrorState extends RandomProfileState {

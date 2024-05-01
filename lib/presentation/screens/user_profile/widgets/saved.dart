@@ -7,15 +7,15 @@ import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dar
 import 'package:quick_glimpse/presentation/screens/view_post/view_post.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 
-class RandomPostGridView extends StatelessWidget {
-  RandomPostGridView({required this.isUser, required this.state, super.key});
+class SavedPostProfile extends StatelessWidget {
+  SavedPostProfile({required this.isUser, required this.state, super.key});
   UserFoundSuccessState state;
   bool isUser;
   @override
   Widget build(BuildContext context) {
-    return state.post.isNotEmpty
+    return state.saved!.isNotEmpty
         ? GridView.builder(
-            itemCount: state.post.length,
+            itemCount: state.saved!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 5.0,
@@ -36,7 +36,7 @@ class RandomPostGridView extends StatelessWidget {
                 },
                 child: GridTile(
                     child: Image.network(
-                  state.post[index].image,
+                  state.saved![index].image,
                   fit: BoxFit.cover,
                 )),
               );

@@ -3,9 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/main.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/buttons.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
@@ -51,7 +54,7 @@ class UsingProfileScreen extends StatelessWidget {
                               Navigator.pop(context);
                             });
                           }
-                          if (value == 'edit') {}
+                          // if (value == 'edit') {}
                         },
                         iconColor: dark ? Colors.white : Colors.black,
                         itemBuilder: (context) {
@@ -60,18 +63,29 @@ class UsingProfileScreen extends StatelessWidget {
                               value: 'delete',
                               child: Text('Delete'),
                             ),
-                            PopupMenuItem(
-                              value: 'edit',
-                              child: Text('Edit'),
-                            )
+                            // PopupMenuItem(
+                            //   value: 'edit',
+                            //   child: Text('Edit'),
+                            // )
                           ];
                         })
-                    : IconButton(
-                        onPressed: () {}, icon: Icon(Icons.download_rounded)),
+                    : SizedBox(),
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(data.post[index].userImage),
                 ),
-                title: Text(data.post[index].username),
+                title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.post[index].username,
+                        style: GoogleFonts.rubik(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        data.post[index].time,
+                        style: const TextStyle(fontSize: 10),
+                      )
+                    ]),
               )),
           Padding(
               padding: const EdgeInsets.only(left: 30, right: 30, bottom: 5),

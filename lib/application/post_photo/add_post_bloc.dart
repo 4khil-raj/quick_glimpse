@@ -53,7 +53,7 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
         if (imagelink.isEmpty && event.caption.isEmpty) {
           emit(PostErrorState(messege: 'Fill all details'));
         } else {
-          User? user = await FirebaseAuth.instance.currentUser;
+          User? user = FirebaseAuth.instance.currentUser;
           FirebaseFirestore.instance.collection('post').doc().set({
             'image': imagelink,
             'uid': user!.uid,
@@ -61,7 +61,7 @@ class AddPostBloc extends Bloc<AddPostEvent, AddPostState> {
             'userprofile': users!.profile,
             'caption': event.caption,
             'like': 0,
-            'time': DateFormat('dd/MM/yy HH:mm').format(DateTime.now())
+            'time': DateFormat('dd/MM/yy HH:mm a').format(DateTime.now())
           });
           emit(PostDoneState());
         }

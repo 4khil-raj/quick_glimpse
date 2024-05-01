@@ -7,7 +7,10 @@ class TimelineRepo {
   Future<List<TimelineModel>> getTimeline() async {
     List<TimelineModel> timelines = [];
     try {
-      final data = await FirebaseFirestore.instance.collection('post').get();
+      final data = await FirebaseFirestore.instance
+          .collection('post')
+          .orderBy('time')
+          .get();
       for (var element in data.docs) {
         final theUser = element.data();
         TimelineModel model = TimelineModel(
