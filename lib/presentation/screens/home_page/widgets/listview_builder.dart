@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
-import 'package:quick_glimpse/application/save_post/save_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
-import 'package:quick_glimpse/presentation/screens/home_page/widgets/buttons.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/like_buttons.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/save_buttons.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/list_tile.dart';
 
 class TimelineBuilder extends StatelessWidget {
@@ -20,6 +20,8 @@ class TimelineBuilder extends StatelessWidget {
         child: ListView.builder(
             itemCount: state.timeline.length,
             itemBuilder: (context, index) {
+              // BlocProvider.of<LikePostBloc>(context)
+              //     .add(CheckLike(image: state.timeline[index].image));
               return Column(children: [
                 HomeListTile(state: state, index: index),
                 Padding(
@@ -37,12 +39,7 @@ class TimelineBuilder extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                     )),
                 Row(children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border_rounded,
-                        size: 30,
-                      )),
+                  LikeButtons(data: state, index: index),
                   IconButton(
                       onPressed: () {},
                       icon: Icon(

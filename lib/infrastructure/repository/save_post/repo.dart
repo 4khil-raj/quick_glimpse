@@ -11,7 +11,7 @@ class SavePostRepo {
       'name': value.timeline[index].username,
       'userprofile': value.timeline[index].userImage,
       'caption': value.timeline[index].caption,
-      'like': 0,
+      'like': value.timeline[index].like,
       'time': value.timeline[index].time,
       'currentUser': users!.uid
     });

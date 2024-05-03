@@ -8,9 +8,14 @@ import 'package:quick_glimpse/presentation/screens/view_post/view_post.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 
 class SavedPostProfile extends StatelessWidget {
-  SavedPostProfile({required this.isUser, required this.state, super.key});
+  SavedPostProfile(
+      {required this.isUser,
+      required this.state,
+      super.key,
+      required this.saved});
   UserFoundSuccessState state;
   bool isUser;
+  bool saved;
   @override
   Widget build(BuildContext context) {
     return state.saved!.isNotEmpty
@@ -28,6 +33,7 @@ class SavedPostProfile extends StatelessWidget {
                     customNavPush(
                         context,
                         ViewPostScreen(
+                          saved: saved,
                           isUser: isUser,
                           index: index,
                           state: state,

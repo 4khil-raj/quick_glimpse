@@ -25,6 +25,7 @@ class ExploreGridView extends StatelessWidget {
               customNavPush(
                   context,
                   ViewPostScreen(
+                    saved: false,
                     isUser: false,
                     index: index,
                     timelinestate: state,

@@ -11,8 +11,8 @@ import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 
-class UsingProfileScreen extends StatelessWidget {
-  UsingProfileScreen(
+class UsingProfileSavedScreen extends StatelessWidget {
+  UsingProfileSavedScreen(
       {required this.index,
       required this.isUser,
       required this.data,
@@ -25,7 +25,7 @@ class UsingProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(data.post[index].username),
+          title: Text(data.saved![index].username),
         ),
         body: Column(children: [
           Padding(
@@ -35,11 +35,11 @@ class UsingProfileScreen extends StatelessWidget {
                   customNavPush(
                       context,
                       RandomProfile(
-                        username: data.post[index].username,
-                        uid: data.post[index].uid,
+                        username: data.saved![index].username,
+                        uid: data.saved![index].uid,
                       ));
                   BlocProvider.of<RandomProfileBloc>(context)
-                      .add(GetRandomUser(email: data.post[index].uid));
+                      .add(GetRandomUser(email: data.saved![index].uid));
                 },
                 trailing: isUser
                     ? PopupMenuButton(
@@ -48,7 +48,7 @@ class UsingProfileScreen extends StatelessWidget {
                             alertsWithButtons(context, 'Are You Sure..?', () {
                               BlocProvider.of<EditDeleteBloc>(context).add(
                                   DeletePostEvent(
-                                      imageUrl: data.post[index].image));
+                                      imageUrl: data.saved![index].image));
                               Navigator.pop(context);
                             });
                           }
@@ -69,18 +69,18 @@ class UsingProfileScreen extends StatelessWidget {
                         })
                     : SizedBox(),
                 leading: CircleAvatar(
-                  backgroundImage: NetworkImage(data.post[index].userImage),
+                  backgroundImage: NetworkImage(data.saved![index].userImage),
                 ),
                 title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data.post[index].username,
+                        data.saved![index].username,
                         style: GoogleFonts.rubik(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        data.post[index].time,
+                        data.saved![index].time,
                         style: const TextStyle(fontSize: 10),
                       )
                     ]),
@@ -94,7 +94,7 @@ class UsingProfileScreen extends StatelessWidget {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: Image.network(
-                    data.post[index].image,
+                    data.saved![index].image,
                     fit: BoxFit.cover,
                   ))),
           Row(children: [
@@ -104,7 +104,7 @@ class UsingProfileScreen extends StatelessWidget {
             IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
             IconButton(
                 onPressed: () {}, icon: Icon(CupertinoIcons.chat_bubble_text)),
-            SizedBox(width: 200, child: Text(data.post[index].caption))
+            SizedBox(width: 200, child: Text(data.saved![index].caption))
           ])
         ]));
   }

@@ -77,8 +77,12 @@ class UserDetailsProfile extends StatelessWidget {
               ),
               Expanded(
                   child: TabBarView(children: [
-                RandomPostGridView(isUser: true, state: state),
-                SavedPostProfile(isUser: true, state: state),
+                RandomPostGridView(
+                  isUser: true,
+                  state: state,
+                  saved: false,
+                ),
+                SavedPostProfile(isUser: true, state: state, saved: true),
               ]))
             ])));
   }

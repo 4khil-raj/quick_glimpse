@@ -12,8 +12,10 @@ class ViewPostScreen extends StatelessWidget {
       {this.timelinestate,
       required this.isUser,
       this.state,
+      required this.saved,
       super.key,
       required this.index});
+  bool saved;
   UserFoundSuccessState? state;
   TimeLineLoadSuccessState? timelinestate;
   int index;
@@ -23,6 +25,7 @@ class ViewPostScreen extends StatelessWidget {
     return state == null
         ? ViewPostUsingExplorer(
             index: index, isUser: isUser, state: timelinestate!)
-        : ViewPostUsingProfile(index: index, isUser: isUser, data: state!);
+        : ViewPostUsingProfile(
+            saved: saved, index: index, isUser: isUser, data: state!);
   }
 }

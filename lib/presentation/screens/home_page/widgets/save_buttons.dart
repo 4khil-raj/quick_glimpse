@@ -11,7 +11,7 @@ class SaveButtonTimeline extends StatelessWidget {
 //enthelum error varuvanel TimeLineLoadSuccessState dynamic matt
   TimeLineLoadSuccessState value;
   int index;
-  bool change = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SavePostBloc, SavePostState>(builder: (context, state) {
