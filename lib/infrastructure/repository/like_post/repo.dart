@@ -13,8 +13,6 @@ class LikePostRepo {
       final postDoc = querySnapshot.docs.first;
       DocumentReference postRef = postDoc.reference;
       await postRef.update({'like': FieldValue.increment(1)});
-      // final likeCount = postDoc.data()['like'];
-      // print(likeCount);
       await FirebaseFirestore.instance
           .collection('user_liked')
           .doc()
@@ -42,7 +40,7 @@ class LikePostRepo {
     return 0;
   }
 
-  Future<List> likedOrNot(String imageUrl) async {
+  Future<List> likedOrNot() async {
     try {
       List<dynamic> likedList = [];
       final data =
@@ -61,5 +59,34 @@ class LikePostRepo {
     }
   }
 
-  Future<void> unlikePost() async {}
+  Future<void> unlikePost(String image) async {
+    final querySnapShot = await FirebaseFirestore.instance
+        .collection('user_liked')
+        .where('image', isEqualTo: image)
+        .get();
+
+    for (var doc in querySnapShot.docs) {
+      if (doc['image'] == image && doc['likedUser'] == users!.uid) {
+        await doc.reference.delete();
+      }
+    }
+    await dislikePost(image);
+  }
+}
+
+Future<void> dislikePost(String imageUrl) async {
+  try {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('post')
+        .where('image', isEqualTo: imageUrl)
+        .get();
+    final postDoc = querySnapshot.docs.first;
+    DocumentReference postRef = postDoc.reference;
+    await postRef.update({'like': FieldValue.increment(-1)});
+    // return likeCount;
+  } catch (e) {
+    print(e);
+    print('faild to like');
+    // return 0;
+  }
 }

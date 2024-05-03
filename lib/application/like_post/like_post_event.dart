@@ -13,6 +13,11 @@ class LikeEvent extends LikePostEvent {
 }
 
 class CheckLike extends LikePostEvent {
+  String? image;
+  CheckLike({this.image});
+}
+
+class UnlikeEvent extends LikePostEvent {
   String image;
-  CheckLike({required this.image});
+  UnlikeEvent({required this.image});
 }

@@ -3,8 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_glimpse/application/comments/comments_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/comments.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/like_buttons.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/save_buttons.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/list_tile.dart';
@@ -41,7 +43,12 @@ class TimelineBuilder extends StatelessWidget {
                 Row(children: [
                   LikeButtons(data: state, index: index),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        BlocProvider.of<CommentsBloc>(context).add(
+                            CheckComments(image: state.timeline[index].image));
+                        commentBottomSheet(
+                            context, state.timeline[index].image);
+                      },
                       icon: Icon(
                         CupertinoIcons.chat_bubble_text,
                         size: 26,

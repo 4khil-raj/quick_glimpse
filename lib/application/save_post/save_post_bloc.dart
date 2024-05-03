@@ -9,9 +9,9 @@ part 'save_post_state.dart';
 
 class SavePostBloc extends Bloc<SavePostEvent, SavePostState> {
   SavePostBloc() : super(SavePostInitial()) {
-    // on<SavePostEvent>((event, emit) {
-    //   emit(SavePostInitial());
-    // });
+    on<SavePostEvent>((event, emit) {
+      emit(SavePostInitial());
+    });
 
     on<SavePostRequestEvent>((event, emit) async {
       try {

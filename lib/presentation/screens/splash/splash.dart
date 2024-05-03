@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
+import 'package:quick_glimpse/application/like_post/like_post_bloc.dart';
 import 'package:quick_glimpse/application/save_post/save_post_bloc.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/screens/authentication/sign_in.dart';

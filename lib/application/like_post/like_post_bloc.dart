@@ -12,7 +12,7 @@ class LikePostBloc extends Bloc<LikePostEvent, LikePostState> {
       emit(LikePostInitial());
     });
     on<CheckLike>((event, emit) async {
-      final checkList = await LikePostRepo().likedOrNot(event.image);
+      final checkList = await LikePostRepo().likedOrNot();
       emit(LikedState(
         check: checkList,
       ));
@@ -22,7 +22,7 @@ class LikePostBloc extends Bloc<LikePostEvent, LikePostState> {
         emit(LikeInit(image: event.imageUrl));
         await LikePostRepo().likePost(event.imageUrl);
         final likes = await LikePostRepo().getLikecount(event.imageUrl);
-        final checkList = await LikePostRepo().likedOrNot(event.imageUrl);
+        final checkList = await LikePostRepo().likedOrNot();
         emit(LikedState(
             count: likes,
             liked: true,
@@ -32,6 +32,13 @@ class LikePostBloc extends Bloc<LikePostEvent, LikePostState> {
         emit(LikeErrorState(msg: e.message.toString()));
         print(e);
       }
+    });
+    on<UnlikeEvent>((event, emit) async {
+      await LikePostRepo().unlikePost(event.image);
+      final checkList = await LikePostRepo().likedOrNot();
+      emit(LikedState(
+        check: checkList,
+      ));
     });
   }
 }
