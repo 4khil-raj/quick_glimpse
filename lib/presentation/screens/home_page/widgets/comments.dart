@@ -6,7 +6,7 @@ import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 // Import or define CustomTextFormField widget
 
 void commentBottomSheet(BuildContext context, String image) {
-  BlocProvider.of<CommentsBloc>(context).add(CheckComments(image: image));
+  // BlocProvider.of<CommentsBloc>(context).add(CheckComments(image: image));
   final commentController = TextEditingController();
   showModalBottomSheet(
     context: context,
@@ -48,43 +48,52 @@ void commentBottomSheet(BuildContext context, String image) {
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        controller:
-                            scrollController, // Attach the scroll controller
-                        itemCount: state.comments.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    state.comments[index].commentedUserImage),
-                              ),
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        state.comments[index].commentedUserName,
-                                        style: TextStyle(fontSize: 14.5),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(state.comments[index].commentedTime,
-                                          style: TextStyle(fontSize: 12))
-                                    ],
+                    state.comments.isNotEmpty
+                        ? Expanded(
+                            child: ListView.builder(
+                              controller:
+                                  scrollController, // Attach the scroll controller
+                              itemCount: state.comments.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(state
+                                          .comments[index].commentedUserImage),
+                                    ),
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              state.comments[index]
+                                                  .commentedUserName,
+                                              style: TextStyle(fontSize: 14.5),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                                state.comments[index]
+                                                    .commentedTime,
+                                                style: TextStyle(fontSize: 12))
+                                          ],
+                                        ),
+                                        Text(state.comments[index].comment)
+                                      ],
+                                    ),
                                   ),
-                                  Text(state.comments[index].comment)
-                                ],
-                              ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          )
+                        : Center(
+                            child: Text('add your comment'),
+                          )
                   ],
                 ),
               );
