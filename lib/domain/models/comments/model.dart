@@ -5,9 +5,11 @@ class CommentModel {
   String commentedUserName;
   String commentedUserImage;
   String commentedTime;
+  String commentId;
 
   CommentModel(
       {required this.comment,
+      required this.commentId,
       required this.commentedTime,
       required this.commentedUser,
       required this.commentedUserImage,

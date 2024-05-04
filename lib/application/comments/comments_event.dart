@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 part of 'comments_bloc.dart';
 
 class CommentsEvent extends Equatable {
@@ -16,4 +18,10 @@ class AddCommentEvent extends CommentsEvent {
   String image;
   String comment;
   AddCommentEvent({required this.comment, required this.image});
+}
+
+class DeleteCommentEvent extends CommentsEvent {
+  String commentId;
+  String image;
+  DeleteCommentEvent({required this.image, required this.commentId});
 }

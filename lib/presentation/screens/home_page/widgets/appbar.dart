@@ -44,8 +44,9 @@ class HomeAppBar extends StatelessWidget {
                 // homeSnackbar(context, 'sanam kail ondo');
               },
               icon: const Icon(
-                CupertinoIcons.mail,
-                color: Colors.black,
+                size: 27,
+                CupertinoIcons.bolt_horizontal_circle_fill,
+                color: Color.fromARGB(255, 236, 16, 16),
               )),
         )
       ],
