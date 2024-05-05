@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quick_glimpse/application/follow_bloc/follow_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/error_screen.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/listview_builder.dart';
@@ -16,6 +17,7 @@ class CustomTimelines extends StatelessWidget {
         if (state is TimelineErrorState) {
           return HomeError(state: state);
         } else if (state is TimeLineLoadSuccessState) {
+          BlocProvider.of<FollowBloc>(context).add(CheckFollowEvent());
           return TimelineBuilder(state: state);
         }
         return HomeShimmer();

@@ -3,6 +3,7 @@ import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/application/comments/comments_bloc.dart';
 import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
+import 'package:quick_glimpse/application/follow_bloc/follow_bloc.dart';
 import 'package:quick_glimpse/application/google_auth/google_auth_bloc.dart';
 import 'package:quick_glimpse/application/like_post/like_post_bloc.dart';
 import 'package:quick_glimpse/application/otp_bloc/otp_bloc.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => FollowBloc(),
+          ),
           BlocProvider(
             create: (context) => EditDeleteBloc(),
           ),

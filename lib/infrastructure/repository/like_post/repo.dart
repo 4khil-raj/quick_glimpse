@@ -17,7 +17,7 @@ class LikePostRepo {
           .collection('user_liked')
           .doc()
           .set({'image': imageUrl, 'likedUser': users!.uid});
-      print('Post liked successfully!');
+
       // return likeCount;
     } catch (e) {
       print(e);
@@ -44,6 +44,8 @@ class LikePostRepo {
     try {
       List<dynamic> likedList = [];
       final data =
+
+          //use wherecase
           await FirebaseFirestore.instance.collection('user_liked').get();
 
       for (var element in data.docs) {

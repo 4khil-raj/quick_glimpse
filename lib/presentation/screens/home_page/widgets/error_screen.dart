@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 
 class HomeError extends StatelessWidget {
-  HomeError({super.key, required this.state});
-  TimelineErrorState state;
+  const HomeError({super.key, required this.state});
+  final TimelineErrorState state;
   @override
   Widget build(BuildContext context) {
     return Center(

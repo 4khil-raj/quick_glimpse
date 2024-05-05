@@ -25,7 +25,7 @@ class TimelineBuilder extends StatelessWidget {
               // BlocProvider.of<LikePostBloc>(context)
               //     .add(CheckLike(image: state.timeline[index].image));
               return Column(children: [
-                HomeListTile(state: state, index: index),
+                HomeListTile(value: state, index: index),
                 Padding(
                     padding: const EdgeInsets.only(
                         left: 30, right: 30, top: 8, bottom: 5),

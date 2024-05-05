@@ -15,6 +15,7 @@ class RandomUserRepo {
 
       querySnapshot.docs.forEach((element) {
         RandomUserModel model = RandomUserModel(
+            uid: element['uid'],
             bio: element['bio'],
             email: element['email'],
             followers: element['followers'],

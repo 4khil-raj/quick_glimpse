@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/followbutton.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
-import 'package:quick_glimpse/presentation/widgets/button.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 
 class HomeListTile extends StatelessWidget {
-  HomeListTile({super.key, required this.state, required this.index});
-  TimeLineLoadSuccessState state;
+  HomeListTile({super.key, required this.value, required this.index});
+  TimeLineLoadSuccessState value;
   int index;
   @override
   Widget build(BuildContext context) {
@@ -25,41 +25,32 @@ class HomeListTile extends StatelessWidget {
             customNavPush(
                 context,
                 RandomProfile(
-                  username: state.timeline[index].username,
-                  uid: state.timeline[index].uid,
+                  username: value.timeline[index].username,
+                  uid: value.timeline[index].uid,
                 ));
             BlocProvider.of<RandomProfileBloc>(context)
-                .add(GetRandomUser(email: state.timeline[index].uid));
+                .add(GetRandomUser(email: value.timeline[index].uid));
           },
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(state.timeline[index].userImage),
+            backgroundImage: NetworkImage(value.timeline[index].userImage),
             radius: 24,
           ),
           title:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              state.timeline[index].username,
+              value.timeline[index].username,
               style:
                   GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             Text(
-              state.timeline[index].time,
+              value.timeline[index].time,
               style: const TextStyle(fontSize: 10),
             )
           ]),
-          trailing: Padding(
-              padding: const EdgeInsets.only(right: 9, top: 5, bottom: 0),
-              child: customButton(
-                isRow: false,
-                borderclr: Colors.transparent,
-                color: Colors.black,
-                height: 30,
-                width: 70,
-                name: 'Follow',
-                textclr: Colors.white,
-                textsize: 13,
-                radius: 20,
-              )),
+          trailing: FollowButtonTimeline(
+            value: value,
+            index: index,
+          ),
         ));
   }
 }

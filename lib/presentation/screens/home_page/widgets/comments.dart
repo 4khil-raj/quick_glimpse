@@ -4,10 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:quick_glimpse/application/comments/comments_bloc.dart';
-import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/comment_lile.dart';
-import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
-import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 // Import or define CustomTextFormField widget
 

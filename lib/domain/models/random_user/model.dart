@@ -1,6 +1,7 @@
 class RandomUserModel {
   String bio;
   String email;
+  String uid;
   dynamic followers;
   dynamic following;
   String name;
@@ -10,6 +11,7 @@ class RandomUserModel {
 
   RandomUserModel(
       {required this.bio,
+      required this.uid,
       required this.email,
       required this.followers,
       required this.following,

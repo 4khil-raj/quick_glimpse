@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/widgets/follow_button.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/widgets/grid_post.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 
@@ -13,7 +14,11 @@ class CustomUserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 11, right: 15, bottom: 8),
+        padding: const EdgeInsets.only(
+          left: 11,
+          right: 11,
+          bottom: 8,
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             CircleAvatar(
@@ -58,17 +63,8 @@ class CustomUserInfo extends StatelessWidget {
               width: double.infinity,
             ),
           ),
-          customButton(
-            isRow: false,
-            borderclr: Colors.black,
-            color: Colors.black,
-            height: 40,
-            name: 'Follow',
-            radius: 20,
-            textclr: Colors.white,
-            width: double.infinity,
-            textsize: 14,
-            onTap: () {},
+          FollowButtonRandomProfile(
+            values: state,
           ),
           SizedBox(
             height: 5,
