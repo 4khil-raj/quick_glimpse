@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
-import 'package:quick_glimpse/application/follow_bloc/follow_bloc.dart';
 import 'package:quick_glimpse/application/like_post/like_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/appbar.dart';
@@ -14,8 +12,6 @@ class UserHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('skfjslkjfslkfjsdf');
-
     BlocProvider.of<LikePostBloc>(context).add(CheckLike());
     BlocProvider.of<TimelineBloc>(context).add(TimelineShowEvent());
     return SafeArea(

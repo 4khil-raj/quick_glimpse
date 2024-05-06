@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, must_be_immutable
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +12,16 @@ import 'package:quick_glimpse/presentation/screens/home_page/widgets/save_button
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/list_tile.dart';
 
 class TimelineBuilder extends StatelessWidget {
-  TimelineBuilder({super.key, required this.state});
-  TimeLineLoadSuccessState state;
+  const TimelineBuilder({super.key, required this.state});
+  final TimeLineLoadSuccessState state;
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<RandomProfileBloc>(context).add(RandomProfileEvent());
+    BlocProvider.of<RandomProfileBloc>(context).add(const RandomProfileEvent());
     return SizedBox(
         height: MediaQuery.of(context).size.height - 180,
         child: ListView.builder(
             itemCount: state.timeline.length,
             itemBuilder: (context, index) {
-              // BlocProvider.of<LikePostBloc>(context)
-              //     .add(CheckLike(image: state.timeline[index].image));
               return Column(children: [
                 HomeListTile(value: state, index: index),
                 Padding(

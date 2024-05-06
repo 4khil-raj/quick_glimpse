@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
+import 'package:quick_glimpse/domain/models/random_user/model.dart';
 
 class FollowRepo {
   Future<void> follow(String userUid) async {
@@ -10,8 +11,8 @@ class FollowRepo {
       'follower_dp': users!.profile,
       'follower_name': users!.name
     });
-    checkFollow();
     increseFollow(userUid, false);
+    checkFollow();
   }
 
   Future<void> increseFollow(String userUid, bool decrease) async {
@@ -41,7 +42,7 @@ class FollowRepo {
     for (var i in querySnapshot.docs) {
       final checker = i.data();
       followers.add(checker['followed_user']);
-      followers.add(checker['follower']);
+      // followers.add(checker['follower']);
     }
     return followers;
   }
@@ -55,5 +56,24 @@ class FollowRepo {
     querySnapshot.docs.forEach((element) {
       element.reference.delete();
     });
+  }
+
+  Future<int> findfollowers(String email) async {
+    int randomuser = 0;
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('Profile')
+          .where('uid', isEqualTo: email)
+          .get();
+
+      querySnapshot.docs.forEach((element) {
+        final followers = element['followers'];
+
+        randomuser = followers;
+      });
+      return randomuser;
+    } catch (e) {
+      return 0;
+    }
   }
 }

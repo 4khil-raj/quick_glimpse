@@ -11,10 +11,15 @@ final class FollowInitial extends FollowState {}
 
 class FollowSuccessState extends FollowState {
   final List list;
-  const FollowSuccessState({required this.list});
+  final int? count;
+  const FollowSuccessState({this.count, required this.list});
 }
 
 class FollowErrorState extends FollowState {
   final String msg;
   const FollowErrorState({required this.msg});
 }
+
+class IncreaseState extends FollowState {}
+
+class DecreaseState extends FollowState {}

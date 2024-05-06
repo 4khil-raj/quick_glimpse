@@ -4,9 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/application/save_post/save_post_bloc.dart';
 import 'package:quick_glimpse/main.dart';
+import 'package:quick_glimpse/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
@@ -46,11 +49,17 @@ class UsingProfileSavedScreen extends StatelessWidget {
                         onSelected: (value) {
                           if (value == 'delete') {
                             alertsWithButtons(context, 'Are You Sure..?', () {
-                              BlocProvider.of<EditDeleteBloc>(context).add(
-                                  DeletePostEvent(
-                                      imageUrl: data.saved![index].image));
+                              BlocProvider.of<SavePostBloc>(context).add(
+                                  RemoveSavedPostUsingProfile(
+                                      image: data.saved![index].image,
+                                      index: index));
+                              BlocProvider.of<RandomProfileBloc>(context)
+                                  .add(GetRandomUser(email: users!.uid!));
+                              Navigator.pop(context);
                               Navigator.pop(context);
                             });
+
+                            print('okey  dah');
                           }
                           // if (value == 'edit') {}
                         },

@@ -33,5 +33,10 @@ class SavePostBloc extends Bloc<SavePostEvent, SavePostState> {
       final done = await SavePostRepo().checkSaved();
       emit(SaveSuccessState(done: done));
     });
+    on<RemoveSavedPostUsingProfile>((event, emit) async {
+      await SavePostRepo().removeSaveUsingprofile(event.image);
+      final done = await SavePostRepo().checkSaved();
+      emit(SaveSuccessState(done: done));
+    });
   }
 }

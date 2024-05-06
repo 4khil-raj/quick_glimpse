@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/widgets/follow_button.dart';
+import 'package:quick_glimpse/presentation/screens/random_profile/widgets/follow_count.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/widgets/grid_post.dart';
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 
 class CustomUserInfo extends StatelessWidget {
   CustomUserInfo({required this.state, super.key});
   UserFoundSuccessState state;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,10 +46,8 @@ class CustomUserInfo extends StatelessWidget {
               width: 30,
             ),
             Column(children: [
-              Text(
-                state.user.followers.toString(),
-                style: GoogleFonts.rubik(
-                    fontSize: 16, fontWeight: FontWeight.w400),
+              FollowCountText(
+                value: state,
               ),
               Text(
                 'Followers',

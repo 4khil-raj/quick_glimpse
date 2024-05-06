@@ -34,17 +34,26 @@ class SavePostRepo {
   }
 
   Future<void> removeSave(TimeLineLoadSuccessState imageUrl, int index) async {
-    try {
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection('saved_post')
-          .where('image', isEqualTo: imageUrl.timeline[index].image)
-          .get();
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('saved_post')
+        .where('image', isEqualTo: imageUrl.timeline[index].image)
+        .get();
 
-      for (var doc in querySnapshot.docs) {
-        await doc.reference.delete();
-      }
-    } catch (e) {
-      print(e.toString());
+    for (var doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
+
+  Future<void> removeSaveUsingprofile(
+    imageUrl,
+  ) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('saved_post')
+        .where('image', isEqualTo: imageUrl)
+        .get();
+
+    for (var doc in querySnapshot.docs) {
+      await doc.reference.delete();
     }
   }
 }

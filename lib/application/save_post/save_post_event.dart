@@ -8,15 +8,21 @@ class SavePostEvent extends Equatable {
 }
 
 class SavePostRequestEvent extends SavePostEvent {
-  SavePostRequestEvent({required this.value, required this.index});
-  TimeLineLoadSuccessState value;
-  int index;
+  const SavePostRequestEvent({required this.value, required this.index});
+  final TimeLineLoadSuccessState value;
+  final int index;
 }
 
 class SaveCheckingEvent extends SavePostEvent {}
 
 class RemoveSavedPostEvent extends SavePostEvent {
-  TimeLineLoadSuccessState state;
-  int index;
-  RemoveSavedPostEvent({required this.state, required this.index});
+  final TimeLineLoadSuccessState state;
+  final int index;
+  const RemoveSavedPostEvent({required this.state, required this.index});
+}
+
+class RemoveSavedPostUsingProfile extends SavePostEvent {
+  const RemoveSavedPostUsingProfile({required this.image, required this.index});
+  final String image;
+  final int index;
 }
