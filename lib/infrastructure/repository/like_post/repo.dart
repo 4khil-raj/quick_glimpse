@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 
 class LikePostRepo {
-  Future<void> likePost(String imageUrl) async {
+  Future<void> likePost(String imageUrl, String uid) async {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection('post')
@@ -13,10 +13,14 @@ class LikePostRepo {
       final postDoc = querySnapshot.docs.first;
       DocumentReference postRef = postDoc.reference;
       await postRef.update({'like': FieldValue.increment(1)});
-      await FirebaseFirestore.instance
-          .collection('user_liked')
-          .doc()
-          .set({'image': imageUrl, 'likedUser': users!.uid});
+      await FirebaseFirestore.instance.collection('user_liked').doc().set({
+        'image': imageUrl,
+        'likedUser': users!.uid,
+        'postedUser': uid,
+        'LikedUser_dp': users?.profile,
+        'LikedUser_name': users?.name,
+        'alert': '${users?.name} Liked your Post❤️',
+      });
 
       // return likeCount;
     } catch (e) {

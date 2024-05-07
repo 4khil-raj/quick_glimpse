@@ -7,10 +7,12 @@ import 'package:quick_glimpse/domain/models/comments/model.dart';
 import 'package:uuid/uuid.dart';
 
 class CommentsRepo {
-  Future<void> addComments(String image, String comments) async {
+  Future<void> addComments(String image, String comments, String uid) async {
     await FirebaseFirestore.instance.collection('comments').doc().set({
       'commentId': const Uuid().v1(),
+      'postedUser': uid,
       'commentedUser': users!.uid,
+      'alert': '${users?.name} Commented on your Post💬',
       'image': image,
       'comment': comments,
       'CommenteduserName': users!.name,

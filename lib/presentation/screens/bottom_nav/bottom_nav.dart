@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/home.dart';
-import 'package:quick_glimpse/presentation/screens/nottification_page/nottification_page.dart';
+import 'package:quick_glimpse/presentation/screens/alerts/nottification_page.dart';
 import 'package:quick_glimpse/presentation/screens/search/search.dart';
 import 'package:quick_glimpse/presentation/screens/user_profile/user_profile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';

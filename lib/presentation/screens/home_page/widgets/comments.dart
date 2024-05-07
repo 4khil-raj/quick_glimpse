@@ -8,7 +8,7 @@ import 'package:quick_glimpse/presentation/screens/home_page/widgets/comment_lil
 import 'package:quick_glimpse/presentation/widgets/form_field.dart';
 // Import or define CustomTextFormField widget
 
-void commentBottomSheet(BuildContext context, String image) {
+void commentBottomSheet(BuildContext context, String image, String uid) {
   // BlocProvider.of<CommentsBloc>(context).add(CheckComments(image: image));
   final commentController = TextEditingController();
   showModalBottomSheet(
@@ -46,6 +46,7 @@ void commentBottomSheet(BuildContext context, String image) {
                             onPressed: () {
                               BlocProvider.of<CommentsBloc>(context).add(
                                   AddCommentEvent(
+                                      uid: uid,
                                       comment: commentController.text,
                                       image: image));
                               commentController.clear();

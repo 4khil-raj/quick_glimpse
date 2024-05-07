@@ -4,7 +4,6 @@ import 'package:quick_glimpse/domain/models/random_user/model.dart';
 
 class FollowRepo {
   Future<void> follow(String userUid) async {
-    print(users!.uid);
     await FirebaseFirestore.instance.collection('Follow').doc().set({
       'followed_user': userUid,
       'follower': users!.uid,
@@ -53,9 +52,14 @@ class FollowRepo {
         .collection('Follow')
         .where('followed_user', isEqualTo: userUid)
         .get();
-    querySnapshot.docs.forEach((element) {
+    for (var element in querySnapshot.docs) {
       element.reference.delete();
-    });
+    }
+    //this is the correct code change the
+    // if (querySnapshot.docs.isNotEmpty) {
+    //   // Since we're expecting only one document, directly delete it
+    //   await querySnapshot.docs.first.reference.delete();
+    // }
   }
 
   Future<int> findfollowers(String email) async {

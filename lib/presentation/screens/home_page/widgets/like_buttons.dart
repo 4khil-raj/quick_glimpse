@@ -67,8 +67,9 @@ class LikeButtons extends StatelessWidget {
       return Stack(children: [
         IconButton(
           onPressed: () {
-            BlocProvider.of<LikePostBloc>(context)
-                .add(LikeEvent(imageUrl: data.timeline[index].image));
+            BlocProvider.of<LikePostBloc>(context).add(LikeEvent(
+                imageUrl: data.timeline[index].image,
+                useruid: data.timeline[index].uid));
           },
           icon: const Icon(
             Icons.favorite_border_rounded,

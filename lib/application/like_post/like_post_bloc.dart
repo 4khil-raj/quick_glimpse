@@ -20,7 +20,7 @@ class LikePostBloc extends Bloc<LikePostEvent, LikePostState> {
     on<LikeEvent>((event, emit) async {
       try {
         emit(LikeInit(image: event.imageUrl));
-        await LikePostRepo().likePost(event.imageUrl);
+        await LikePostRepo().likePost(event.imageUrl, event.useruid);
         final likes = await LikePostRepo().getLikecount(event.imageUrl);
         final checkList = await LikePostRepo().likedOrNot();
         emit(LikedState(

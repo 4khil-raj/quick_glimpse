@@ -17,7 +17,9 @@ class CheckComments extends CommentsEvent {
 class AddCommentEvent extends CommentsEvent {
   String image;
   String comment;
-  AddCommentEvent({required this.comment, required this.image});
+  String uid;
+  AddCommentEvent(
+      {required this.comment, required this.image, required this.uid});
 }
 
 class DeleteCommentEvent extends CommentsEvent {

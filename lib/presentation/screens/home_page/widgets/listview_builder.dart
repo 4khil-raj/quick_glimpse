@@ -44,8 +44,8 @@ class TimelineBuilder extends StatelessWidget {
                       onPressed: () {
                         BlocProvider.of<CommentsBloc>(context).add(
                             CheckComments(image: state.timeline[index].image));
-                        commentBottomSheet(
-                            context, state.timeline[index].image);
+                        commentBottomSheet(context, state.timeline[index].image,
+                            state.timeline[index].uid);
                       },
                       icon: Icon(
                         CupertinoIcons.chat_bubble_text,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_glimpse/application/alerts_bloc/alerts_bloc.dart';
 import 'package:quick_glimpse/application/auth_bloc/auth_bloc.dart';
 import 'package:quick_glimpse/application/bottm_nav_bloc/bottom_nav_bloc.dart';
 import 'package:quick_glimpse/application/comments/comments_bloc.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => AlertsBloc(),
+          ),
           BlocProvider(
             create: (context) => FollowBloc(),
           ),

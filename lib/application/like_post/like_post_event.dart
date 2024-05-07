@@ -8,8 +8,9 @@ class LikePostEvent extends Equatable {
 }
 
 class LikeEvent extends LikePostEvent {
+  String useruid;
   String imageUrl;
-  LikeEvent({required this.imageUrl});
+  LikeEvent({required this.imageUrl, required this.useruid});
 }
 
 class CheckLike extends LikePostEvent {

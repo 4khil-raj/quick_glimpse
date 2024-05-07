@@ -24,7 +24,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
 
     on<AddCommentEvent>((event, emit) async {
       try {
-        await CommentsRepo().addComments(event.image, event.comment);
+        await CommentsRepo().addComments(event.image, event.comment, event.uid);
         final commentList = await CommentsRepo().getComments(event.image);
         emit(CommentsFound(comments: commentList));
       } on FirebaseException catch (e) {
