@@ -7,7 +7,7 @@ import 'package:quick_glimpse/presentation/screens/home_page/widgets/snackbar.da
 import 'package:quick_glimpse/presentation/widgets/button.dart';
 
 class FollowButtonRandomProfile extends StatelessWidget {
-  FollowButtonRandomProfile({required this.values, super.key});
+  const FollowButtonRandomProfile({required this.values, super.key});
   final UserFoundSuccessState values;
 
   @override

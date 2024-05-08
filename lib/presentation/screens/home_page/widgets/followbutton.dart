@@ -59,8 +59,6 @@ class FollowButtonTimeline extends StatelessWidget {
                       textsize: 13,
                       radius: 20,
                     );
-                  } else {
-                    print('potti potti');
                   }
                 }
                 return customButton(

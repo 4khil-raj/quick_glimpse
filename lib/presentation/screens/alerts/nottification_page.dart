@@ -25,11 +25,11 @@ class NottificationPage extends StatelessWidget {
               children: [
                 state.follower.isEmpty
                     ? SizedBox()
-                    : AlertsFollowersGridView(state: state),
+                    : AlertsFollowersGridView(values: state),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    'Intractions',
+                    'Nottifications',
                     style: GoogleFonts.rubik(fontSize: 14),
                   ),
                 ),

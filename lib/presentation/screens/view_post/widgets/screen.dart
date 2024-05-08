@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
+import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/main.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/like_buttons.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
 import 'package:quick_glimpse/presentation/widgets/custom_navigator.dart';
@@ -101,7 +103,17 @@ class UsingProfileScreen extends StatelessWidget {
             SizedBox(
               width: 10,
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+            BlocBuilder<TimelineBloc, TimelineState>(
+              builder: (context, state) {
+                if (state is TimeLineLoadSuccessState) {
+                  return LikeButtons(data: state, index: index);
+                }
+                return IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.favorite),
+                );
+              },
+            ),
             IconButton(
                 onPressed: () {}, icon: Icon(CupertinoIcons.chat_bubble_text)),
             SizedBox(width: 200, child: Text(data.post[index].caption))

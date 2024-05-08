@@ -54,7 +54,7 @@ class AlertsRepo {
             useruId: element['commentedUser']);
         likecomment.add(model);
       }
-      print(likecomment.length);
+
       return likecomment.reversed.toList();
     } catch (e) {
       print('elseelellelele');

@@ -54,7 +54,7 @@ class LikePostRepo {
 
       for (var element in data.docs) {
         final theUser = element.data();
-        if (users!.uid == theUser['likedUser']) {
+        if (users?.uid == theUser['likedUser']) {
           likedList.add(theUser['likedUser']);
           likedList.add(theUser['image']);
         }
