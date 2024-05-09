@@ -57,7 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             'phone': event.user.phone,
             'uid': user.uid
           });
-//changed
+
           emit(SignUpAuthSuccessState(user: user));
         } else {
           emit(AuthError(message: 'Fill All details'));
@@ -103,62 +103,3 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
   }
 }
-
-//     on<LoginEvent>((event, emit) async {
-//       try {
-//         if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
-//           UserCredential userCredential =
-//               await _auth.signInWithEmailAndPassword(
-//                   email: event.email, password: event.passcode);
-
-//           final user = userCredential.user;
-//           if (user != null) {
-//             emit(Authenticated(user: user));
-//           } else {
-//             emit(UnAuthenticated());
-//           }
-//         } else {
-//           emit(AuthError(message: 'Please enter valid email and password.'));
-//         }
-//       } on FirebaseAuthException catch (e) {
-//         // Handle specific authentication errors
-//         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-//           emit(AuthError(
-//               message: 'Invalid email or password. Please try again.'));
-//         } else {
-//           // Handle other FirebaseAuth exceptions
-//           emit(AuthError(message: 'Authentication failed: ${e.message}'));
-//         }
-//       } catch (e) {
-//         // Handle other exceptions
-//         emit(AuthError(message: 'An unexpected error occurred.'));
-//       }
-//     });
-//   }
-// }
-
-//     FutureOr<void> loginCheck(LoginEvent event, Emitter<AuthState> emit) async {
-//       try {
-//         if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
-//           emit(AuthLoading());
-//           UserCredential? userCredential =
-//               await _auth.signInWithEmailAndPassword(
-//                   email: event.email, password: event.passcode);
-
-//           final user = userCredential.user;
-//           if (user != null) {
-//             emit(Authenticated(user: user));
-//           } else {
-//             emit(UnAuthenticated());
-//           }
-//         } else {
-//           emit(AuthError(message: 'Enter Valid info!!!'));
-//         }
-//       } on FirebaseAuthException catch (e) {
-//         emit(AuthError(message: e.message.toString()));
-//       } catch (e) {
-//         emit(AuthError(message: e.toString()));
-//       }
-//     }
-//   }
-// }

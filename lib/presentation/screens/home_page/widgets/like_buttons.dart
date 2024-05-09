@@ -7,9 +7,9 @@ import 'package:quick_glimpse/application/like_post/like_post_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 
 class LikeButtons extends StatelessWidget {
-  LikeButtons({required this.data, required this.index, super.key});
-  TimeLineLoadSuccessState data;
-  int index;
+  const LikeButtons({required this.data, required this.index, super.key});
+  final TimeLineLoadSuccessState data;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LikePostBloc, LikePostState>(builder: (context, state) {
@@ -52,10 +52,8 @@ class LikeButtons extends StatelessWidget {
               ),
             ),
             Positioned(
-                // bottom: -15,
                 left: 20,
                 top: 33.4,
-                // right: 15,
                 child: Text((data.timeline[index].like + 1).toString(),
                     style: TextStyle(
                       fontSize: 14,
@@ -77,10 +75,8 @@ class LikeButtons extends StatelessWidget {
           ),
         ),
         Positioned(
-            // bottom: -15,
             left: 20,
             top: 33.4,
-            // right: 15,
             child: Text(data.timeline[index].like.toString(),
                 style: TextStyle(
                   fontSize: 14,

@@ -67,7 +67,7 @@ void commentBottomSheet(BuildContext context, String image, String uid) {
                                         child: CommentListTile(
                                             index: index, state: state));
                                   }))
-                          : Center(
+                          : const Center(
                               child: Text('add your comment'),
                             )
                     ]));

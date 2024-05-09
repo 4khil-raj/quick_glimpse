@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_glimpse/application/comments/comments_bloc.dart';
 import 'package:quick_glimpse/application/edit_delete/edit_delete_bloc.dart';
 import 'package:quick_glimpse/application/random_profile/random_profile_bloc.dart';
 import 'package:quick_glimpse/application/timeline_bloc/timeline_bloc.dart';
 import 'package:quick_glimpse/main.dart';
+import 'package:quick_glimpse/presentation/screens/home_page/widgets/comments.dart';
 import 'package:quick_glimpse/presentation/screens/home_page/widgets/like_buttons.dart';
 import 'package:quick_glimpse/presentation/screens/random_profile/random.dart';
 import 'package:quick_glimpse/presentation/widgets/alert_box.dart';
@@ -115,7 +117,13 @@ class UsingProfileScreen extends StatelessWidget {
               },
             ),
             IconButton(
-                onPressed: () {}, icon: Icon(CupertinoIcons.chat_bubble_text)),
+                onPressed: () {
+                  BlocProvider.of<CommentsBloc>(context)
+                      .add(CheckComments(image: data.post[index].image));
+                  commentBottomSheet(
+                      context, data.post[index].image, data.post[index].uid);
+                },
+                icon: Icon(CupertinoIcons.chat_bubble_text)),
             SizedBox(width: 200, child: Text(data.post[index].caption))
           ])
         ]));
