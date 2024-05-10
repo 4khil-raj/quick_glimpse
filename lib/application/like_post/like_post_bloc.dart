@@ -30,7 +30,6 @@ class LikePostBloc extends Bloc<LikePostEvent, LikePostState> {
             currentimg: event.imageUrl));
       } on FirebaseException catch (e) {
         emit(LikeErrorState(msg: e.message.toString()));
-        print(e);
       }
     });
     on<UnlikeEvent>((event, emit) async {

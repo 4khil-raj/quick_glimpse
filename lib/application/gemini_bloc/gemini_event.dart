@@ -1,8 +1,12 @@
 part of 'gemini_bloc.dart';
 
-sealed class GeminiEvent extends Equatable {
-  const GeminiEvent();
+@immutable
+sealed class GeminiEvent {}
 
-  @override
-  List<Object> get props => [];
+class GeminiNewTextMessageEvent extends GeminiEvent {
+  GeminiNewTextMessageEvent({
+    required this.inputMessage,
+  });
+
+  final String inputMessage;
 }
